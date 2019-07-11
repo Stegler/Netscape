@@ -9,7 +9,7 @@
   "test": {
     "username": "root",
     "password": "0815",
-    "database": "exampledb",
+    "database": "user_db",
     "host": "localhost",
     "dialect": "mysql",
     "logging": false
