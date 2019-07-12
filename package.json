@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "dotenv": "^8.0.0",
+    "electron": "^5.0.6",
     "express": "^4.17.0",
     "express-handlebars": "^3.1.0",
     "mysql2": "^1.6.5",
