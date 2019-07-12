@@ -5,9 +5,9 @@
         <form class="clearfix mb-4" action="/game" method="POST">
           {{!-- user input name to start the game --}}
           <div class="form-group">
-            <label for="userName-text">Enter Name </label>
-            <input type="text" id="userName-text" class="form-control" name="name" aria-describedby="userName-text"
-              placeholder="Name">
+            <label for="userName-text" pellcheck="true">Enter Name </label>
+            <input type="text" id="userName-text" spellcheck="true" class="form-control" name="name"
+              aria-describedby="userName-text" placeholder="Name">
           </div>
           {{!-- start game --}}
           <input type="submit" class="btn btn-primary btn-lg btn-block" value="Start"></input>
