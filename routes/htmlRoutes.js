@@ -6,8 +6,10 @@ module.exports = function(app) {
     res.render('index');
   });
   //load game page
-  app.get('/game', function(req, res) {
-    res.render('game');
+  app.post('/game', function(req, res) {
+    db.Users.create(req.body).then(function(db_user) {
+      res.render('game', db_user.dataValues);
+    });
   });
 
   app.get('/leader', function(req, res) {

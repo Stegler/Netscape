@@ -2,18 +2,19 @@
   <div class="container">
     <div class="row">
       <div class="col-8 offset-2">
-        <form class="clearfix mb-4" action="POST">
+        <form class="clearfix mb-4" action="/game" method="POST">
+          {{!-- user input name to start the game --}}
           <div class="form-group">
             <label for="userName-text">Enter Name </label>
-            <input type="text" id="userName-text" class="form-control" aria-describedby="userName-text"
+            <input type="text" id="userName-text" class="form-control" name="name" aria-describedby="userName-text"
               placeholder="Name">
           </div>
-
-          <button type="button" class="btn btn-primary btn-lg btn-block">Start</button>
+          {{!-- start game --}}
+          <input type="submit" class="btn btn-primary btn-lg btn-block" value="Start"></input>
         </form>
-
-
+        {{!-- leader Board --}}
         <button type="button" class="btn btn-success btn-lg btn-block">Leaders Board</button>
+        {{!-- credit --}}
         <button type="button" class="btn btn-warning btn-lg btn-block">About</button>
       </div>
     </div>
@@ -21,4 +22,5 @@
 </div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
 <script src="/js/index.js"></script>
