@@ -11,6 +11,9 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static('public'));
 
+app.use('/assets', express.static(__dirname + '/assets'));
+
+
 // Handlebars
 app.engine(
   'handlebars',
