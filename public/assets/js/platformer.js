@@ -3,6 +3,7 @@ var config = {
     type: Phaser.AUTO,
     width: 1200,
     height: 640,
+    parent: 'GameCanvas',
     physics: {
         default: 'arcade',
         arcade: {
@@ -20,6 +21,8 @@ var config = {
 
 var game = new Phaser.Game(config);
 
+
+
 var map;
 var player;
 var cursors;
@@ -30,17 +33,17 @@ var text;
 
 function preload() {
     // map made with Tiled in JSON format
-    this.load.tilemapTiledJSON('level1', 'levels\level1.json');
+    this.load.tilemapTiledJSON('level1', '/assets/levels/level1.json');
     //  load tiles ground
-    this.load.image('ground', 'public\assets\images\ground.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.image('ground', '/assets/images/ground.png', { frameWidth: 32, frameHeight: 32 });
     //  load simple coin image
-    this.load.image('treasure', 'public\assets\images\treasure.png');
+    this.load.image('treasure', '/assets/images/treasure.png');
     //  load simple background
-    this.load.image('background', 'public\assets\images\background.png');
+    this.load.image('background', '/assets/images/background.png');
     //  load simple player image
-    this.load.image('player', 'public\assets\images\player.png');
+    this.load.image('player', '/assets/images/player.png');
     // load simple monster image
-    this.load.image('monster', 'public\assets\images\monster.png');
+    this.load.image('monster', '/assets/images/monster.png');
 }
 
 function create() {
@@ -83,8 +86,7 @@ function create() {
         immovable: true
       });
       
-      // Let's get the spike objects, these are NOT sprites
-    var treasureobjects = map.getObjectLayer('treasure')['objects'];
+
 
 }
 

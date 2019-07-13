@@ -5,30 +5,32 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
 
-  <link rel="stylesheet" type="text/css" href="/styles/gamestyle.css">
+  <link rel="stylesheet" type="text/css" href="/assets/styles/gamestyle.css">
 
 
 </head>
 
 <body>
   <h1>Hello, {{this.name}}</h1>
-  <div id="platformer">
 
-    <canvas id="canvas">
-      <div class="unsupported">
-        Sorry, this example cannot be run because your browser does not support the &lt;canvas&gt; element
-      </div>
-    </canvas>
+  <br>
 
-    <div id="instructions">
-      <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump, collect gold and jump on monsters.
+    <div id="GameCanvas">
+
     </div>
 
+  <br>
+
+  <div id="instructions">
+    <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump, collect gold and jump on monsters.
   </div>
-  
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.18.1/dist/phaser.js"></script>
-  <script src="public\assets\js\fpsmeter.min.js"></script>
-  <script src="public\assets\js\platformer.js"></script>
+
+
+
+
+  <script src="//cdn.jsdelivr.net/npm/phaser@3.18.1/dist/phaser.js"></script>
+  <script src="/assets/js/fpsmeter.min.js"></script>
+  <script src="/assets/js/platformer.js"></script>
 
 </body>
 
