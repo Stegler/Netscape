@@ -169,7 +169,7 @@
   function collectTreasure(t) {
     player.collected++;
     t.collected = true;
-
+    console.log(player.collected);
     // treasure.length
     if (player.collected == 1) {
       //alert('YOU WIN');
@@ -272,6 +272,7 @@
     renderTreasure(ctx, frame);
     renderPlayer(ctx, dt);
     renderMonsters(ctx, dt);
+    console.log(60 - setTimeout(60000));
   }
 
   function renderMap(ctx) {
@@ -393,15 +394,15 @@
   let dt = 0;
   let now;
   let last = timestamp();
-  let fpsmeter = new FPSMeter({
-    decimals: 0,
-    graph: true,
-    theme: 'dark',
-    left: '5px'
-  });
+  // // let fpsmeter = new FPSMeter({ --EK
+  //   decimals: 0,
+  //   graph: true,
+  //   theme: 'dark',
+  //   left: '5px'
+  // });
 
   function frame() {
-    fpsmeter.tickStart();
+    // fpsmeter.tickStart();--EK
     now = timestamp();
     dt += Math.min(1, (now - last) / 1000);
     while (dt > step) {
@@ -411,7 +412,7 @@
     render(ctx, counter, dt);
     last = now;
     counter++;
-    fpsmeter.tick();
+    // fpsmeter.tick();--EK
     requestAnimationFrame(frame, canvas);
   }
 
