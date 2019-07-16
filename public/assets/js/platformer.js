@@ -97,4 +97,4 @@ function update() {
 setTimeout(() => {
   console.log('timeout');
   window.location = '/endgame';
-}, 3000 * 1);
+}, 1000 * 60);
