@@ -1,6 +1,16 @@
-// var db = require('../models');
+var db = require('../models');
 const path = require('path');
 module.exports = function(app) {
+  // Get top 5 best time
+  app.get('/api/leaders', function(req, res) {
+    db.Users.findAll({
+      limit: 5,
+      order: [['bestTime', 'ASC']]
+    }).then(function(results) {
+      res.json(results);
+    });
+  });
+
   // lender game level
 
   app.get('/mylevel.json', (req, res) => {
