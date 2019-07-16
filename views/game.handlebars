@@ -2,36 +2,35 @@
 <html>
 
 <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/p5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.dom.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.8.0/addons/p5.sound.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/bmoren/p5.collide2D/p5.collide2d.min.js"></script>
+  <script src="https://unpkg.com/ml5@0.3.1/dist/ml5.min.js"></script>
 
-  <link rel="stylesheet" type="text/css" href="/assets/styles/gamestyle.css">
+  <link rel="stylesheet" type="text/css" href="/assets/styles/styles.css" />
+  <meta charset="utf-8" />
 
 
 </head>
 
 <body>
-  <h1>Hello, {{this.name}}</h1>
+  <div class="container text-center">
+    <h1>Hello, {{this.name}}</h1>
+    <br>
 
-  <br>
+    <div id="instructions">
+      <b>Press SPACE</b> <b>or SAID UP</b> to jump avoid the trains!
+    </div>
 
-  <input type="hidden" id="user" value="{{this.name}}" />
-  <div id="GameCanvas">
+    <input type="hidden" id="user" value="{{this.name}}" />
+    <div id="GameCanvas">
 
+    </div>
   </div>
-
-  <br>
-
-  <div id="instructions">
-    <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump, collect gold and jump on monsters.
-  </div>
-
-
-
-
-  <script src="//cdn.jsdelivr.net/npm/phaser@3.18.1/dist/phaser.js"></script>
-  <script src="/assets/js/fpsmeter.min.js"></script>
-  <script src="/assets/js/platformer.js"></script>
+  <script src="/assets/js/unicorn.js"></script>
+  <script src="/assets/js/train.js"></script>
+  <script src="/assets/js/sketch.js"></script>
 
 </body>
 
