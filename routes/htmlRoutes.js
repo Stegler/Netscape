@@ -22,10 +22,6 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/endgame', function(req, res) {
-    res.render('endgame');
-  });
-
   app.post('/endgame', function(req, res) {
     db.Users.create(req.body).then(function(dbUser) {
       res.json(dbUser);
