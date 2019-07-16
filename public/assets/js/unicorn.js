@@ -29,9 +29,5 @@ class Unicorn {
 
   show() {
     image(uImg, this.x, this.y, this.r, this.r);
-
-    // fill(255, 50);
-    // ellipseMode(CORNER);
-    // ellipse(this.x, this.y, this.r, this.r);
   }
 }

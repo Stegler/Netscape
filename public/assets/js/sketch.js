@@ -5,6 +5,8 @@ let bImg;
 let trains = [];
 let soundClassifier;
 let cnv;
+const user = document.getElementById('user').value;
+let startTime = new Date();
 
 function preload() {
   const options = {
@@ -54,6 +56,12 @@ function keyPressed() {
 }
 
 function draw() {
+  var endTime = new Date();
+  var endScore = {
+    name: user,
+    treasurePoint: '0',
+    bestTime: endTime - startTime
+  };
   if (random(1) < 0.005) {
     trains.push(new Train());
   }
@@ -64,7 +72,10 @@ function draw() {
     t.show();
     if (unicorn.hits(t)) {
       console.log('game over');
-      noLoop();
+      $.post('/endgame', endScore, function(data) {
+        console.log(data);
+        window.location = '/leader/' + user;
+      });
     }
   }
 

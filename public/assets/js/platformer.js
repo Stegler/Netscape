@@ -97,19 +97,17 @@ function update() {
 // set time out and post data to server, lender to leader board when it timeout
 var startTime = new Date();
 
-setTimeout(() => {
-  const user = document.getElementById('user').value;
-  // console.log(user);
-  var endTime = new Date();
-  // window.location = '/endgame/';
-  var endScore = {
-    name: user,
-    treasurePoint: '0',
-    bestTime: endTime - startTime
-  };
+const user = document.getElementById('user').value;
+// console.log(user);
+var endTime = new Date();
+// window.location = '/endgame/';
+var endScore = {
+  name: user,
+  treasurePoint: '0',
+  bestTime: endTime - startTime
+};
 
-  $.post('/endgame', endScore, function(data) {
-    console.log(data);
-    window.location = '/leader/' + user;
-  });
-}, 1000 * 60);
+$.post('/endgame', endScore, function(data) {
+  console.log(data);
+  window.location = '/leader/' + user;
+});
