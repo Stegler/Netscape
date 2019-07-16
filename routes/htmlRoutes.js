@@ -7,17 +7,29 @@ module.exports = function(app) {
   });
   //load game page
   app.post('/game', function(req, res) {
-    db.Users.create(req.body).then(function(db_user) {
-      res.render('game', db_user.dataValues);
-    });
+    res.render('game', req.body);
   });
 
-  app.get('/leader', function(req, res) {
-    res.render('leaderBoard');
+  app.get('/leader/:name', function(req, res) {
+    db.Users.findOne({
+      where: {
+        name: req.params.name
+      }
+    }).then(function(result) {
+      var user = result.dataValues;
+      user.bestTime = user.bestTime / 1000;
+      res.render('leaderBoard', user);
+    });
   });
 
   app.get('/endgame', function(req, res) {
     res.render('endgame');
+  });
+
+  app.post('/endgame', function(req, res) {
+    db.Users.create(req.body).then(function(dbUser) {
+      res.json(dbUser);
+    });
   });
 
   // Render 404 page for any unmatched routes
