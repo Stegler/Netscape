@@ -12,7 +12,7 @@ module.exports = function(app) {
     });
   });
 
-  app.get('/leader', function(req, res) {
+  app.get('/leaderboard', function(req, res) {
     res.render('leaderBoard');
   });
 
@@ -25,3 +25,4 @@ module.exports = function(app) {
   //   res.render('404');
   // });
 };
+  

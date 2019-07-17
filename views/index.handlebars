@@ -1,7 +1,11 @@
+<br>
 <div id="home">
+
   <div class="container">
+
+    {{!-- ROW 1 --}}
     <div class="row">
-      <div class="col-8 offset-2">
+      <div class="col-sm-12">
         <form class="clearfix mb-4" action="/game" method="POST">
           {{!-- user input name to start the game --}}
           <div class="form-group">
@@ -9,16 +13,34 @@
             <input type="text" id="userName-text" class="form-control" name="name" aria-describedby="userName-text"
               placeholder="Name">
           </div>
-          {{!-- start game --}}
-          <input type="submit" class="btn btn-primary btn-lg btn-block" value="Start"></input>
         </form>
-        {{!-- leader Board --}}
-        <button type="button" class="btn btn-success btn-lg btn-block">Leaders Board</button>
-        {{!-- credit --}}
-        <button type="button" class="btn btn-warning btn-lg btn-block">About</button>
+        {{!-- Start Button --}}
+        <button id="button">START</button>
+        <canvas id="myCanvas" width="500" height="400"></canvas>
+
+        {{!-- ROW 2 --}}
+        <div class="row">
+          <div id="buttons-div" class="col-sm-12">
+            {{!-- Leaderboard Button --}}
+            <div class="button_cont" align="center"><a class="example_e" href="/leaderboard"
+                rel="nofollow noopener">Leaderboard</a></div><br>
+            {{!-- About Button --}}
+            <div class="button_cont" align="center"><a class="example_e" href="/endgame"
+                rel="nofollow noopener">About</a></div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div id="directions-div" class="col-sm-12">
+            <h3 align="center">Arrows to move, space to jump. Collect the coins as fast as you can!</h3>
+          </div>
+        </div>
+
       </div>
     </div>
+
   </div>
+
 </div>
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
