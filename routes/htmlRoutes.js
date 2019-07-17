@@ -21,19 +21,4 @@ module.exports = function(app) {
       res.render('leaderBoard', user);
     });
   });
-
-  app.get('/endgame', function(req, res) {
-    res.render('endgame');
-  });
-
-  app.post('/endgame', function(req, res) {
-    db.Users.create(req.body).then(function(dbUser) {
-      res.json(dbUser);
-    });
-  });
-
-  // Render 404 page for any unmatched routes
-  // app.get('*', function(req, res) {
-  //   res.render('404');
-  // });
 };

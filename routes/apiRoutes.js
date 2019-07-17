@@ -19,6 +19,11 @@ module.exports = function(app) {
     });
   });
 
+  app.post('/endgame', function(req, res) {
+    db.Users.create(req.body).then(function(dbUser) {
+      res.json(dbUser);
+    });
+  });
   // lender game level
 
   app.get('/mylevel.json', (req, res) => {
