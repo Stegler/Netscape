@@ -6,12 +6,13 @@
     {{!-- ROW 1 --}}
     <div class="row">
       <div class="col-sm-12">
-        <form class="clearfix mb-4" action="/game" method="POST">
+        <form class="needs-validation mb-4" action="/game" method="POST">
           {{!-- user input name to start the game --}}
           <div class="form-group">
-            <label for="userName-text" pellcheck="true">Enter Name </label>
-            <input type="text" id="userName-text" spellcheck="true" class="form-control" name="name"
-              aria-describedby="userName-text" placeholder="Name">
+            <label for="userName-text">Enter Name </label>
+            <input type="text" id="userName-text" class="form-control" name="name" aria-describedby="userName-text"
+              placeholder="Name" required>
+
           </div>
           <input type="submit" id="button" value="Start"></input>
           <canvas id="myCanvas" width="500" height="400"></canvas>
@@ -46,4 +47,4 @@
 
 </div>
 
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="/assets/js/index.js"></script>
