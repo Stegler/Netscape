@@ -1,0 +1,120 @@
+/* .list-group-item {
+  line-height: 2.5;
+} */
+
+input.MyButton {
+  width: 300px;
+  padding: 20px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 150%;
+  background: #3366cc;
+  color: #fff;
+  border: 1px solid #3366cc;
+  border-radius: 10px;
+  -moz-box-shadow:: 6px 6px 5px #999;
+  -webkit-box-shadow:: 6px 6px 5px #999;
+  box-shadow:: 6px 6px 5px #999;
+  }
+
+  input.MyButton:hover {
+  color: #ffff00;
+  background: #000;
+  border: 1px solid #fff;
+  }
+
+  body {
+    margin: 0;
+overflow: hidden;
+}
+#myCanvas {
+    display: block;
+}
+
+/* Start button */
+
+#button {
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+    position: absolute;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    padding: 7px 20px;
+    left: 50%;
+    width: 200px;
+    margin-left: -100px;
+    top: 50%;
+    border-radius: 10px;
+    color: white;
+    text-shadow: -1px -1px 1px rgba(0,0,0,0.8);
+    border: 5px solid transparent;
+    border-bottom-color: rgba(0,0,0,0.35);
+    background: hsla(260, 100%, 50%, 1);
+    cursor: pointer;
+outline: 0 !important;
+
+    animation: pulse 1s infinite alternate;
+    transition: background 0.4s, border 0.2s, margin 0.2s;
+}
+#button:hover {
+    background: hsla(220, 100%, 60%, 1);
+    margin-top: -1px;
+
+    animation: none;
+}
+#button:active {
+    border-bottom-width: 0;
+    margin-top: 5px;
+}
+@keyframes pulse {
+    0% {
+        margin-top: 0px;
+    }
+    100% {
+        margin-top: 6px; 
+    } 
+}
+
+/* Leaderboard button */
+
+.example_e {
+  border: none;
+  background: #404040;
+  color: #ffffff !important;
+  font-weight: 100;
+  padding: 20px;
+  text-transform: uppercase;
+  border-radius: 6px;
+  display: inline-block;
+  transition: all 0.3s ease 0s;
+  }
+
+  .example_e:hover {
+    color: #404040 !important;
+    font-weight: 700 !important;
+    letter-spacing: 3px;
+    background: whitesmoke;
+    -webkit-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    -moz-box-shadow: 0px 5px 40px -10px rgba(0,0,0,0.57);
+    transition: all 0.3s ease 0s;
+    }
+
+    /* App background */
+    body {
+      background: radial-gradient(circle, purple, teal);
+      font-family: 'Orbitron', sans-serif;
+    }
+
+    /* Buttons div */
+    #buttons-div {
+      padding-top: 100px;
+    }
+
+    /* Directions div */
+    #directions-div {
+      padding-top: 50px;
+    }
+
+    /* How to play */
+    h3 {
+      color: whitesmoke;
+    }
