@@ -10,6 +10,13 @@ module.exports = function(app) {
     res.render('game', req.body);
   });
 
+  // load leader board
+
+  app.get('/leaderboard', function(req, res) {
+    res.render('leaderBoard');
+  });
+
+  //end game auto route to leader board with user score
   app.get('/leader/:name', function(req, res) {
     db.Users.findOne({
       where: {

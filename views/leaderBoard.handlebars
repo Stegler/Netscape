@@ -1,17 +1,25 @@
+{{!-- This code append data from lender.js jquery
+
 <div class="container">
     <h2>Best Time</h2>
     <br />
     <div id="bestTIme"></div>
     <hr />
-</div>
+</div> 
 
+<script type="text/javascript" src="/assets/js/leaders.js"></script>
+
+--}}
+
+{{!-- This code run when there is user score --}}
+{{#if bestTime}}
 <div class="container">
     <h2>Your Best Time is {{this.bestTime}}s</h2>
 
     <h2>Your Score is: {{this.treasurePoint}} coins</h2>
 </div>
+{{/if}}
 
-<script type="text/javascript" src="/assets/js/leaders.js"></script>
 <br>
 <div class="row">
     <div class="col-sm-2">
