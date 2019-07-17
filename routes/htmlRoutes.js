@@ -3,17 +3,24 @@ var db = require('../models');
 module.exports = function(app) {
   // Load index page
   app.get('/', function(req, res) {
-    res.render('index');
+    res.render('index', {
+      style: 'styles.css'
+    });
   });
   //load game page
   app.post('/game', function(req, res) {
-    res.render('game', req.body);
+    res.render('game', {
+      style: 'gamestyle.css',
+      dataValue: req.body
+    });
   });
 
   // load leader board
 
   app.get('/leaderboard', function(req, res) {
-    res.render('leaderBoard');
+    res.render('leaderBoard', {
+      style: 'styles.css'
+    });
   });
 
   //end game auto route to leader board with user score
@@ -21,11 +28,15 @@ module.exports = function(app) {
     db.Users.findOne({
       where: {
         name: req.params.name
-      }
+      },
+      order: [['updatedAt', 'DESC']]
     }).then(function(result) {
       var user = result.dataValues;
       user.bestTime = user.bestTime / 1000;
-      res.render('leaderBoard', user);
+      res.render('leaderBoard', {
+        style: 'styles.css',
+        finalScore: user
+      });
     });
   });
 };
