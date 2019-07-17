@@ -168,7 +168,7 @@ function monsterKillPlayer(player, Monsters) {
 }
 
 function checkCoins() {
-  if (coinScore == 1) {
+  if (coinScore == 26) {
     Gameover();
   }
 }
