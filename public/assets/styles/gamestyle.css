@@ -2,6 +2,11 @@ body {
   background: #111;
 }
 
+h1 {
+  color: white;
+  text-align: center;
+}
+
 #platformer {
   margin: 1em auto;
   position: relative;
@@ -9,10 +14,8 @@ body {
   height: 384px;
 }
 
-#canvas {
-  display: inline-block;
-  width: 100%;
-  height: 100%;
+#GameCanvas {
+  margin-left: 10%;
 }
 
 #instructions {
@@ -21,11 +24,10 @@ body {
   font-size: 9pt;
   margin-left: 1em;
   margin-top: 0.5em;
+  text-align: center;
 }
 
-#instructions b {
-  color: #ddd;
-}
+
 
 @media screen and (min-width: 0px) and (min-height: 0px) {
   #platformer {
