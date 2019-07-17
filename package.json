@@ -2,12 +2,13 @@
   "name": "node-handlebars-boilerplate",
   "version": "1.0.0",
   "description": "Project 2 Starter",
-  "main": "server.js",
+  "main": "main.js",
   "scripts": {
     "start": "node server.js",
+    "electron": "electron .",
     "lint": "eslint --quiet .",
     "fix": "eslint --fix .",
-    "test": "npm run lint && cross-env NODE_ENV=test mocha -u tdd --reporter spec --exit"
+    "test": "npm run lint && cross-env NODE_ENV=test mocha -u bdd --reporter spec --exit"
   },
   "license": "ISC",
   "dependencies": {
@@ -18,6 +19,7 @@
     "sequelize": "^5.10.0"
   },
   "devDependencies": {
+    "electron": "^5.0.6",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cross-env": "^5.2.0",
