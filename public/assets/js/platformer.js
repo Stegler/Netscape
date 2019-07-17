@@ -2,16 +2,16 @@ var config = {
   type: Phaser.AUTO,
   width: 1200,
   height: 800,
-  parent: 'GameCanvas',
+  parent: "GameCanvas",
   physics: {
-    default: 'arcade',
+    default: "arcade",
     arcade: {
       gravity: { y: 750 },
       debug: false
     }
   },
   scene: {
-    key: 'main',
+    key: "main",
     preload: preload,
     create: create,
     update: update
@@ -35,33 +35,33 @@ var cursors;
 var startTime = new Date();
 function preload() {
   // map made with Tiled in JSON format
-  this.load.tilemapTiledJSON('level1', '/assets/levels/level1.json');
+  this.load.tilemapTiledJSON("level1", "/assets/levels/level1.json");
   //  load tiles ground
-  this.load.image('tiles', '/assets/images/tileset.png');
+  this.load.image("tiles", "/assets/images/tileset.png");
   //  load simple coin image
-  this.load.image('treasure', '/assets/images/treasure.png');
+  this.load.image("treasure", "/assets/images/treasure.png");
   //  load simple background
-  this.load.image('background', '/assets/images/background.png');
+  this.load.image("background", "/assets/images/background.png");
   // load player and player animations
-  this.load.image('player', 'assets/images/player.png');
+  this.load.image("player", "assets/images/player.png");
   // load simple monster image
-  this.load.image('monster', '/assets/images/monster.png');
+  this.load.image("monster", "/assets/images/monster.png");
   // load spike image
-  this.load.image('spike', '/assets/images/groundspike.png');
+  this.load.image("spike", "/assets/images/groundspike.png");
 }
 
 function create() {
   // load the map
-  map = this.make.tilemap({ key: 'level1' });
+  map = this.make.tilemap({ key: "level1" });
 
   // load the background image
-  this.add.image(600, 300, 'background');
+  this.add.image(600, 300, "background");
 
   // tiles for the ground layer
-  var tileset = map.addTilesetImage('tileset', 'tiles');
+  var tileset = map.addTilesetImage("tileset", "tiles");
 
   // create the ground layer
-  var groundLayer = map.createStaticLayer('Tiles', tileset, 0, 0);
+  var groundLayer = map.createStaticLayer("Tiles", tileset, 0, 0);
 
   // the player will collide with this layer
   groundLayer.setCollisionByExclusion([-1]);
@@ -71,7 +71,7 @@ function create() {
   this.physics.world.bounds.height = groundLayer.height;
 
   // create the player sprite
-  player = this.physics.add.sprite(50, 830, 'player');
+  player = this.physics.add.sprite(50, 830, "player");
   player.setCollideWorldBounds(true); // don't go out of the map
 
   // Physics so player can't fall through any groundlayer variable. AKA the tiles.
@@ -87,7 +87,7 @@ function create() {
 
   // Create coins objects
   // Objects is the Name of the objets layer. treasure is name of objects within object layer
-  Coins = map.createFromObjects('Objects', 'treasure', { key: 'treasure' });
+  Coins = map.createFromObjects("Objects", "treasure", { key: "treasure" });
   console.log(Coins);
   this.physics.world.enable(Coins);
   for (var i = 0; i < Coins.length; i++) {
@@ -97,7 +97,7 @@ function create() {
   this.physics.add.collider(player, Coins, collectCoin, null, this);
 
   // Create enemy objects
-  Monsters = map.createFromObjects('Objects', 'monster', { key: 'monster' });
+  Monsters = map.createFromObjects("Objects", "monster", { key: "monster" });
 
   this.physics.world.enable(Monsters);
   this.physics.add.collider(groundLayer, Monsters);
@@ -111,7 +111,7 @@ function create() {
 
   // Create spikes around map
   // Objects is the Name of the objets layer. treasure is name of objects within object layer
-  Spikes = map.createFromObjects('Objects', 'spike', { key: 'spike' });
+  Spikes = map.createFromObjects("Objects", "spike", { key: "spike" });
 
   this.physics.world.enable(Spikes);
   for (var i = 0; i < Spikes.length; i++) {
@@ -141,13 +141,13 @@ function collectCoin(player, Coins) {
   Coins.destroy(Coins.x, Coins.y); // remove the tile/coin
   coinScore++;
   checkCoins();
-  console.log('Treasure collected!');
+  console.log("Treasure collected!");
 }
 
 function SpikeDeath(player, Spikes) {
   player.destroy(player.x, player.y);
   playerLives--;
-  console.log('Avoid the spikes dummy!' + playerLives);
+  console.log("Avoid the spikes dummy!" + playerLives);
   checkLives();
   Respawn();
 }
@@ -156,7 +156,7 @@ function SpikeDeath(player, Spikes) {
 function playerKillMonster(player, Monsters) {
   Monsters.destroy(Monsters.x, Monsters.y); // Kill monster! Jump on head
 
-  console.log('Monster Squished!');
+  console.log("Monster Squished!");
 }
 
 // Only run monster kill player if player horizontal to monster
@@ -187,7 +187,7 @@ function Respawn() {
 }
 
 function Gameover() {
-  const user = document.getElementById('user').value;
+  const user = document.getElementById("user").value;
   var endTime = new Date();
   var endScore = {
     name: user,
@@ -197,17 +197,17 @@ function Gameover() {
 
   // Redirect player to the Game Over Screen
   //post the result to database
-  $.post('/endgame', endScore, function(data) {
+  $.post("/endgame", endScore, function(data) {
     console.log(data);
     // Redirect player to the leader board Screen
-    window.location = '/leader/' + user;
+    window.location = "/leader/" + user;
   });
 }
 
 // timer for game end
 setTimeout(() => {
   Gameover();
-}, 1000 * 30);
+}, 1000 * 300);
 
 //same function as Gameover()
 // function winGame() {

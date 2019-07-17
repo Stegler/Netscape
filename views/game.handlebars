@@ -1,21 +1,27 @@
-{{!-- <head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="/assets/styles/gamestyle.css">
-</head> --}}
-
 <body>
+  <br>
   <h1>Hello, {{dataValue.name}}</h1>
-
   <br>
+  <div class="container-fluid">
+    <div class="row">
+      {{!-- Status Display --}}
+      <div class="col" id="gameStat">
+        <h2 id="coinCollected"> Coin Collected: 0/26</h2>
+        <h2 id="live"> Live Remaining: 3</h2>
+        <h2 id="monsterKilled"> Monster Killed: 0/26</h2>
+        <input type="hidden" id="user" value="{{dataValue.name}}" />
 
-  <input type="hidden" id="user" value="{{dataValue.name}}" />
-  <div id="GameCanvas">
+      </div>
 
+      {{!-- Game area --}}
+      <div class="col-md-auto" id="GameCanvas" onresize="resize_canvas()"></div>
+
+      <div class="col-lg-1"></div>
+      <br>
+    </div>
   </div>
-
+  {{!-- Game instruction --}}
   <br>
-
   <div id="instructions">
     <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump, collect gold and jump on monsters.
   </div>
@@ -23,5 +29,18 @@
   <script src="//cdn.jsdelivr.net/npm/phaser@3.18.1/dist/phaser.js"></script>
   <script src="/assets/js/fpsmeter.min.js"></script>
   <script src="/assets/js/platformer.js"></script>
+
+  <script type="text/javascript">
+    function resize_canvas() {
+      canvas = document.getElementById("GameCanvas");
+      if (canvas.width < window.innerWidth) {
+        canvas.width = window.innerWidth;
+      }
+
+      if (canvas.height < window.innerHeight) {
+        canvas.height = window.innerHeight;
+      }
+    }
+  </script>
 
 </body>
