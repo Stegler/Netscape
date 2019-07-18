@@ -30,8 +30,10 @@ var player;
 var playerLives = 3;
 
 var treasure;
-var monster;
 var coinScore = 0; // Total coin number is 26. 
+
+var monster;
+var boxSpeed = 100;
 
 var moveCam = false;
 var cursors;
@@ -101,8 +103,6 @@ function create() {
         Coins[i].body.setAllowGravity(false);
     };
 
-    this.physics.add.collider(player, Coins, collectCoin, null, this);
-
 
     // Create invisible walls for monsters to run into
     InvisibleWalls = map.createFromObjects("Objects", "wall", { key: 'wall' });
@@ -112,33 +112,30 @@ function create() {
     };
 
 
-
-
     // Create enemy objects
     Monsters = map.createFromObjects("Objects", "monster", { key: 'monster' });
-
     this.physics.world.enable(Monsters);
-    this.physics.add.collider(groundLayer, Monsters);
-    this.physics.add.collider(Monsters, Monsters);
-
     // Adds movement for all the enemies
     for (var i = 0; i < Monsters.length; i++) {
-        Monsters[i].body.velocity.x = 100;
+        Monsters[i].body.velocity.x = boxSpeed;
     };
 
-    this.physics.add.collider(player, Monsters, playerKillMonster, null, this);
-    this.physics.add.collider(InvisibleWalls, Monsters, Bounce, null, this);
 
     // Create spikes around map
     // Objects is the Name of the objets layer. treasure is name of objects within object layer
     Spikes = map.createFromObjects("Objects", "spike", { key: 'spike' });
-
     this.physics.world.enable(Spikes);
     for (var i = 0; i < Spikes.length; i++) {
         Spikes[i].body.setAllowGravity(false);
     };
 
+    // Create all our collision functions. 
     this.physics.add.collider(player, Spikes, SpikeDeath, null, this);
+    this.physics.add.collider(player, Monsters, playerKillMonster, null, this);
+    this.physics.add.collider(player, Coins, collectCoin, null, this);
+    this.physics.add.collider(InvisibleWalls, Monsters, Bounce, null, this);
+    this.physics.add.collider(Monsters, Monsters, Bounce, null, this);
+    this.physics.add.collider(groundLayer, Monsters);
 }
 
 
@@ -193,7 +190,14 @@ function checkCoins() {
     }
 }
 
-function Bounce() {
+function Bounce(InvisibleWalls, Monsters) {
+
+    if (Monsters.body.touching.right || Monsters.body.blocked.right) {
+        Monsters.body.velocity.x = -boxSpeed; // turn left
+    }
+    else if (Monsters.body.touching.left || Monsters.body.blocked.left) {
+        Monsters.body.velocity.x = boxSpeed; // turn right
+    }
 
 };
 
