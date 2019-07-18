@@ -12,7 +12,7 @@ module.exports = function(app) {
           [Op.gt]: 0
         }
       },
-      limit: 5,
+      limit: 10,
       order: [['bestTime', 'ASC']]
     }).then(function(results) {
       res.json(results);
