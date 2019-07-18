@@ -51,6 +51,8 @@ function preload() {
     this.load.image('monster', '/assets/images/monster.png');
     // load spike image
     this.load.image('spike', '/assets/images/groundspike.png');
+    // load wall image
+    this.load.image('wall', '/assets/images/wall.png');
 }
 
 function create() {
@@ -102,25 +104,35 @@ function create() {
     this.physics.add.collider(player, Coins, collectCoin, null, this);
 
 
+    // Create invisible walls for monsters to run into
+    InvisibleWalls = map.createFromObjects("Objects", "wall", { key: 'wall' });
+    this.physics.world.enable(InvisibleWalls);
+    for (var i = 0; i < InvisibleWalls.length; i++) {
+        InvisibleWalls[i].body.setAllowGravity(false).immovable = true;
+    };
+
+
+
 
     // Create enemy objects
     Monsters = map.createFromObjects("Objects", "monster", { key: 'monster' });
 
     this.physics.world.enable(Monsters);
     this.physics.add.collider(groundLayer, Monsters);
+    this.physics.add.collider(Monsters, Monsters);
 
     // Adds movement for all the enemies
     for (var i = 0; i < Monsters.length; i++) {
-        // Monsters[i].body.velocity.x = 100;
+        Monsters[i].body.velocity.x = 100;
     };
 
     this.physics.add.collider(player, Monsters, playerKillMonster, null, this);
-
+    this.physics.add.collider(InvisibleWalls, Monsters, Bounce, null, this);
 
     // Create spikes around map
     // Objects is the Name of the objets layer. treasure is name of objects within object layer
     Spikes = map.createFromObjects("Objects", "spike", { key: 'spike' });
-    
+
     this.physics.world.enable(Spikes);
     for (var i = 0; i < Spikes.length; i++) {
         Spikes[i].body.setAllowGravity(false);
@@ -139,9 +151,8 @@ function update() {
     else if (cursors.right.isDown) // if the right arrow key is down
     {
         player.body.setVelocityX(160); // move right
-    } 
-    else 
-    {
+    }
+    else {
         player.setVelocityX(0);
     }
     if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor()) {
@@ -160,26 +171,20 @@ function collectCoin(player, Coins) {
 }
 
 function SpikeDeath(player, Spikes) {
-    player.destroy(player.x, player.y);
-    playerLives --;
+    this.scene.restart();
+    playerLives--;
     console.log("Avoid the spikes dummy!" + playerLives);
-    checkLives();
-    Respawn();
 }
 
 // Only run player kill monster if player lands on monster head
 function playerKillMonster(player, Monsters) {
     Monsters.destroy(Monsters.x, Monsters.y); // Kill monster! Jump on head
-    
     console.log("Monster Squished!")
 }
 
 // Only run monster kill player if player horizontal to monster
 function monsterKillPlayer(player, Monsters) {
-    player.destroy(player.x, player.y);
-    playerLives --;
-    checkLives();
-    Respawn();
+    this.scene.restart();
 }
 
 function checkCoins() {
@@ -188,18 +193,8 @@ function checkCoins() {
     }
 }
 
-function checkLives() {
-    if (playerLives > 0) {
-        Respawn();
-    };
-    if (playerLives = 0) {
-        Gameover()
-    };
-}
+function Bounce() {
 
-function Respawn() {
-    // Recreate the player at the start zone
-    
 };
 
 function Gameover() {
