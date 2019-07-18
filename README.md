@@ -18,13 +18,13 @@ htmlRoute.js-->>Game Page:post("/game"), \n data: name value from input box, ren
 
 Note left of Game Page: GamePage.html \n 1. post the name  \n value to hidden input form \n in html
 
-Note right of Game Page: GamePage.js \n Gameover() fucntion for \n 1. store the data to db \n post("/endgame") & endScore data \n 2. render leaderboad page \n  get("/leader/" + user)
+Note right of Game Page: GamePage.js \n Gameover() fucntion for \n 1. store the data to db \n $.post("/endgame") & endScore data \n 2. render leaderboad page \n  $.get("/leader/" + user)
 
-Game Page-->> apiRoute.js:1 . post("/endgame") & endScore data
+Game Page-->> apiRoute.js:1 . $.post("/endgame") & endScore data
 
 Note left of apiRoute.js : apiRoute.js \n post("/endgame") , \n db.Users.create(req.body)
 
-Game Page-->> htmlRoute.js: 2. get("/leader/" + user)
+Game Page-->> htmlRoute.js: 2. $.get("/leader/" + user)
 
 htmlRoute.js-->>Leader Page: get("/leader/" + user) \n db.Users.findOne where: name: req.params.name,\n render("leaderBoard")
 
