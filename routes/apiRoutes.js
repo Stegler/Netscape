@@ -13,7 +13,7 @@ module.exports = function(app) {
         }
       },
       limit: 10,
-      order: [["treasurePoint", "DESC"], ["bestTime", "ASC"]]
+      order: [["treasurePoint", "DESC"], ["monstersKilled", "DESC"]]
     }).then(function(results) {
       res.json(results);
     });

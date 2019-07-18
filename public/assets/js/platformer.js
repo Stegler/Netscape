@@ -194,17 +194,17 @@ function Respawn() {
   // Recreate the player at the start zone
 }
 
+// sent the final score to db
 function Gameover() {
   const user = document.getElementById("user").value;
   var endTime = new Date();
   var endScore = {
     name: user,
     treasurePoint: coinScore,
+    monstersKilled: numOfKilledMonster,
     bestTime: endTime - startTime
   };
 
-  // Redirect player to the Game Over Screen
-  //post the result to database
   $.post("/endgame", endScore, function(data) {
     console.log(data);
     // Redirect player to the leader board Screen
@@ -243,7 +243,7 @@ function updateGameTop5() {
       var duration = moment.duration(data[i].bestTime, "milliseconds");
       var formmatedTime = duration.format("m:ss", { trim: false });
 
-      $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].treasurePoint), $("<td>").text(formmatedTime)));
+      $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].monstersKilled), $("<td>").text(formmatedTime)));
     }
   });
 }
