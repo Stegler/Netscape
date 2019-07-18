@@ -27,12 +27,13 @@ var player;
 var playerLives = 3;
 
 var treasure;
-var monster;
+var numOfKilledMonster = 0;
 var coinScore = 0; // Total coin number is 26.
 
 var moveCam = false;
 var cursors;
 var startTime = new Date();
+
 function preload() {
   // map made with Tiled in JSON format
   this.load.tilemapTiledJSON("level1", "/assets/levels/level1.json");
@@ -141,6 +142,8 @@ function collectCoin(player, Coins) {
   Coins.destroy(Coins.x, Coins.y); // remove the tile/coin
   coinScore++;
   checkCoins();
+  // show current coins collected on html
+  $("#coinCollected").text(coinScore);
   console.log("Treasure collected!");
 }
 
@@ -150,12 +153,15 @@ function SpikeDeath(player, Spikes) {
   console.log("Avoid the spikes dummy!" + playerLives);
   checkLives();
   Respawn();
+  // update player live stat on html
+  $("#live").text(playerLives);
 }
 
 // Only run player kill monster if player lands on monster head
 function playerKillMonster(player, Monsters) {
   Monsters.destroy(Monsters.x, Monsters.y); // Kill monster! Jump on head
-
+  numOfKilledMonster++;
+  $("#monsterKilled").text(numOfKilledMonster);
   console.log("Monster Squished!");
 }
 
@@ -165,6 +171,8 @@ function monsterKillPlayer(player, Monsters) {
   playerLives--;
   checkLives();
   Respawn();
+  // update player live stat on html
+  $("#live").text(playerLives);
 }
 
 function checkCoins() {
@@ -207,12 +215,15 @@ function Gameover() {
 // timer for game end
 setTimeout(() => {
   Gameover();
-}, 1000 * 300);
+}, 1000 * 60 * 3);
 
-//same function as Gameover()
-// function winGame() {
-//   // End the game
-//   Gameover();
-//   // Display Clear Time / Max Coins collected.
-//   // Redirect player to Score Screen
-// }
+// set game time count
+
+setInterval(currentTime, 1000);
+
+function currentTime() {
+  var currentTime = new Date();
+  different = currentTime - startTime;
+  duration = moment.duration(different, "milliseconds");
+  $("#time").text(duration.format("m:ss", { trim: false }));
+}
