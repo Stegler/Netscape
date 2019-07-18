@@ -17,6 +17,7 @@ function renderBestTime(data) {
         $("#bestTIme").append("<h4> Name: " + data[i].name + "</h4>");
         $("#bestTIme").append("<h4> Best Time : " + data[i].bestTime / 1000 + "s</h4>");
         $("#bestTIme").append("<h4> Treasure Collected : " + data[i].bestTime + " coins</h4>");
+        $("#bestTIme").append("<h4> Treasure Collected : " + data[i].monstersKilled + " coins</h4>");
       }
     }
   }

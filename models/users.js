@@ -11,6 +11,10 @@ module.exports = function(sequelize, DataTypes) {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
+    monstersKilled: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     bestTime: {
       type: DataTypes.INTEGER,
       defaultValue: 0

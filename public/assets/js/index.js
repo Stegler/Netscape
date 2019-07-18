@@ -1,4 +1,4 @@
-// Example starter JavaScript for disabling form submissions if there are invalid fields
+//  validation for name input fill
 (function() {
   "use strict";
   window.addEventListener(
