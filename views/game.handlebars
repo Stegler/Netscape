@@ -1,21 +1,36 @@
-<head>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
-  <link rel="stylesheet" type="text/css" href="/assets/styles/gamestyle.css">
-</head>
-
 <body>
-  <h1>Hello, {{this.name}}</h1>
-
   <br>
+  <h1>Good Luck, {{dataValue.name}}!</h1>
+  <br>
+  <div class="container-fluid">
+    <div class="row">
+      {{!-- Status Display --}}
+      <div class="col" id="gameStat">
+        <h2>Coin Collected: <span id="coinCollected">0</span>/26</h2>
+      </div>
 
-  <input type="hidden" id="user" value="{{this.name}}" />
-  <div id="GameCanvas">
+      <div class="col">
+        <h2>Live Remaining: <span id="live">3</span></h2>
+      </div>
+
+      <div class="col">
+        <h2>Monster Killed: <span id="monsterKilled">0</span>/26</h2>
+      </div>
+
+      <div class="col">
+        <h2>Your Time is: <span id="time">0:00</span></h2>
+        <input type="hidden" id="user" value="{{dataValue.name}}" />
+      </div>
+    </div>
+
+    {{!-- Game area --}}
+    <div class="row">
+      <div class="col-md-auto" id="GameCanvas"></div>
+    </div>
 
   </div>
 
-  <br>
-
+  {{!-- Game instruction --}}
   <div id="instructions">
     <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump, collect gold and jump on monsters.
   </div>
