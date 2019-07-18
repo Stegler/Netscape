@@ -227,3 +227,23 @@ function currentTime() {
   duration = moment.duration(different, "milliseconds");
   $("#time").text(duration.format("m:ss", { trim: false }));
 }
+
+//let set refresh the top 5 every minute
+updateGameTop5();
+
+setInterval(updateGameTop5, 1000 * 60);
+
+// Make a get request to our api route that will return top 5 players
+function updateGameTop5() {
+  $.get("/api/leaders", function(data) {
+    // For each book that our server sends us back
+    $(".table-dark > tbody").html("");
+
+    for (var i = 0; i < 5; i++) {
+      var duration = moment.duration(data[i].bestTime, "milliseconds");
+      var formmatedTime = duration.format("m:ss", { trim: false });
+
+      $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].treasurePoint), $("<td>").text(formmatedTime)));
+    }
+  });
+}
