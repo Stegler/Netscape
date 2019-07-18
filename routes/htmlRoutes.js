@@ -1,4 +1,8 @@
 var db = require("../models");
+var moment = require("moment");
+var momentDurationFormatSetup = require("moment-duration-format");
+moment().format();
+momentDurationFormatSetup(moment);
 
 module.exports = function(app) {
   // Load index page
@@ -32,7 +36,11 @@ module.exports = function(app) {
       order: [["updatedAt", "DESC"]]
     }).then(function(result) {
       var user = result.dataValues;
-      user.bestTime = user.bestTime / 1000;
+      var duration = moment.duration(user.bestTime, "milliseconds");
+      var formmatedTime = duration.format("m:ss", { trim: false });
+
+      user.bestTime = formmatedTime;
+
       res.render("leaderBoard", {
         style: "styles.css",
         finalScore: user

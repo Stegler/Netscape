@@ -13,7 +13,7 @@ module.exports = function(app) {
         }
       },
       limit: 10,
-      order: [["bestTime", "ASC"]]
+      order: [["treasurePoint", "DESC"], ["bestTime", "ASC"]]
     }).then(function(results) {
       res.json(results);
     });
