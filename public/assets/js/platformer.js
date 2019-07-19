@@ -76,7 +76,7 @@ function create() {
   map = this.make.tilemap({ key: "level1" });
 
   // Create the background image
-  this.add.image(600, 300, "background");
+  this.add.image(925, 450, "background");
 
   // Create tiles for the ground layer
   var tileset = map.addTilesetImage("tileset", "tiles");
