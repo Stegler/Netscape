@@ -329,11 +329,20 @@ function updateGameTop5() {
         // For each book that our server sends us back
         $(".table-dark > tbody").html("");
 
+        if (data.length > 5) {
         for (var i = 0; i < 5; i++) {
             var duration = moment.duration(data[i].bestTime, "milliseconds");
             var formmatedTime = duration.format("m:ss", { trim: false });
 
             $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].monstersKilled), $("<td>").text(formmatedTime)));
+        } 
+        } else {
+            for (var i = 0; i < data.length; i++) {
+                var duration = moment.duration(data[i].bestTime, "milliseconds");
+                var formmatedTime = duration.format("m:ss", { trim: false });
+    
+                $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].monstersKilled), $("<td>").text(formmatedTime)));
+            } 
         }
     });
 }
