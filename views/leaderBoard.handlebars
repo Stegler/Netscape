@@ -12,11 +12,11 @@
 --}}
 
 {{!-- This code run when there is user score --}}
-{{#if bestTime}}
+{{#if finalScore.bestTime}}
 <div class="container">
-    <h2>Your Best Time is {{this.bestTime}}s</h2>
-
-    <h2>Your Score is: {{this.treasurePoint}} coins</h2>
+    <h2>{{finalScore.name}}, your Best Time is {{finalScore.bestTime}}s</h2>
+    <h2>Your Coins Collected is: {{finalScore.treasurePoint}} coins</h2>
+    <h2>Humber of Monsters Killed: {{finalScore.monstersKilled}} </h2>
 </div>
 {{/if}}
 

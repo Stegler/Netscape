@@ -1,5 +1,8 @@
 body {
   background: #111;
+  width: 100%;
+  height: 100%;
+  margin: 0;
 }
 
 h1 {
@@ -7,15 +10,11 @@ h1 {
   text-align: center;
 }
 
-#platformer {
-  margin: 1em auto;
-  position: relative;
-  width: 512px;
-  height: 384px;
-}
-
 #GameCanvas {
-  margin-left: 10%;
+  margin: 1em auto;
+  padding-left: 0 30px;
+  position: relative;
+  /* overflow: hidden; */
 }
 
 #instructions {
@@ -27,50 +26,9 @@ h1 {
   text-align: center;
 }
 
-
-
-@media screen and (min-width: 0px) and (min-height: 0px) {
-  #platformer {
-    width: 512px;
-    height: 384px;
-    font-size: 7pt;
-  }
+#gameStat {
+  font-style: italic;
+  color: rgb(143, 32, 32);
+  font-size: 9pt;
+  text-align: center;
 }
-
-/* block = 16 */
-@media screen and (min-width: 840px) and (min-height: 530px) {
-  #platformer {
-    width: 640px;
-    height: 480px;
-    font-size: 9pt;
-  }
-}
-
-/* block = 20 */
-@media screen and (min-width: 968px) and (min-height: 626px) {
-  #platformer {
-    width: 768px;
-    height: 576px;
-    font-size: 11pt;
-  }
-}
-
-/* block = 24 */
-@media screen and (min-width: 1096px) and (min-height: 722px) {
-  #platformer {
-    width: 896px;
-    height: 672px;
-    font-size: 13pt;
-  }
-}
-
-/* block = 28 */
-@media screen and (min-width: 1224px) and (min-height: 818px) {
-  #platformer {
-    width: 1024px;
-    height: 768px;
-    font-size: 15pt;
-  }
-}
-
-/* block = 32 */

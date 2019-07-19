@@ -1,5 +1,5 @@
 module.exports = function(sequelize, DataTypes) {
-  var Users = sequelize.define('Users', {
+  var Users = sequelize.define("Users", {
     name: {
       type: DataTypes.STRING,
       allowNull: false,
@@ -8,6 +8,10 @@ module.exports = function(sequelize, DataTypes) {
       }
     },
     treasurePoint: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
+    monstersKilled: {
       type: DataTypes.INTEGER,
       defaultValue: 0
     },
