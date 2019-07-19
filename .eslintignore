@@ -1,2 +1,8 @@
 models/index.js
 node_modules
+
+# temporary
+public/assets/js/platformer.js
+public/assets/js/fpsmeter.min.js
+main.js
+routes/apiRoutes.js
