@@ -260,7 +260,7 @@ function SpikeDeath(player, Spikes) {
   Death(player);
 }
 
-// This function makes the monsters "bounce" off the walls and reverse direction. The walls are invisible blocks maode in Tiled.
+// This function makes the monsters "bounce" off the walls and reverse direction. The walls are invisible blocks made in Tiled.
 function Bounce(InvisibleWalls, Monsters) {
   if (Monsters.body.touching.right || Monsters.body.blocked.right) {
     Monsters.body.velocity.x = -boxSpeed; // turn left
