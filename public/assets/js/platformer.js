@@ -199,7 +199,8 @@ function update() {
         }
         player.flipX = false;
         player.body.setVelocityX(180);
-    } else if (cursors.left.isDown) {
+    }
+    else if (cursors.left.isDown) {
         if (player.body.onFloor()) {
             player.play("walk", true);
         } else {
@@ -207,13 +208,19 @@ function update() {
         }
         player.flipX = true;
         player.body.setVelocityX(-180);
-    } else {
+    }
+    else {
         if (player.body.onFloor()) {
             player.play("idle");
         } else {
             player.play("jump", true);
         }
+        player.body.setVelocityX(0);
     }
+    if ((cursors.up.isDown || cursors.space.isDown) && player.body.onFloor()) {
+        player.body.setVelocityY(-400);
+    }
+
 };
 
 // External function to collect coins
