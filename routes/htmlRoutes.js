@@ -1,3 +1,4 @@
+// dependencies
 var db = require("../models");
 var moment = require("moment");
 var momentDurationFormatSetup = require("moment-duration-format");
@@ -11,6 +12,7 @@ module.exports = function(app) {
       style: "styles.css"
     });
   });
+
   //load game page
   app.post("/game", function(req, res) {
     res.render("game", {
@@ -20,7 +22,6 @@ module.exports = function(app) {
   });
 
   // load leader board
-
   app.get("/leaderboard", function(req, res) {
     res.render("leaderBoard", {
       style: "styles.css"
@@ -36,6 +37,7 @@ module.exports = function(app) {
       order: [["updatedAt", "DESC"]]
     }).then(function(result) {
       var user = result.dataValues;
+      // formatting the time with moment.js
       var duration = moment.duration(user.bestTime, "milliseconds");
       var formmatedTime = duration.format("m:ss", { trim: false });
 
@@ -45,6 +47,13 @@ module.exports = function(app) {
         style: "styles.css",
         finalScore: user
       });
+    });
+  });
+
+  //if everything else route
+  app.get("*", function(req, res) {
+    res.render("404", {
+      style: "styles.css"
     });
   });
 };
