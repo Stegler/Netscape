@@ -1,25 +1,23 @@
 <body>
   <br>
-  <h1>Good Luck, {{dataValue.name}}!</h1>
-  <br>
   <div class="container-fluid">
     <div class="row" id="gameStat">
       {{!-- Status Display --}}
-      <div class="col">
-        <h2>Coin Collected: <span id="coinCollected">0</span>/26</h2>
-      </div>
-
-      <div class="col">
-        <h2>Live Remaining: <span id="live">3</span></h2>
-      </div>
-
-      <div class="col">
-        <h2>Monsters Killed: <span id="monsterKilled">0</span>/26</h2>
-      </div>
-
-      <div class="col">
-        <h2>Your Time is: <span id="time">0:00</span></h2>
+      {{!-- <div class="col">
+        <h2>Current Time: <span id="time">0:00</span></h2>
         <input type="hidden" id="user" value="{{dataValue.name}}" />
+      </div> --}}
+      {{!-- 
+      <div class="col">
+        <h2>Coins Collected: <span id="coinCollected">0</span>/26</h2>
+      </div> --}}
+
+      {{!-- <div class="col">
+        <h2>Lives Remaining: <span id="live">3</span></h2>
+      </div> --}}
+
+      <div class="col">
+        <h1>Good Luck, {{dataValue.name}}!</h1>
       </div>
     </div>
 
@@ -28,15 +26,15 @@
       <div class="col-md-auto">
         <div id="GameCanvas"></div>
       </div>
-      <div class="col-3">
+      <div id="top-5" class="col-3">
         <h1 align="center">Top 5!</h1>
         <table class="table table-dark">
           <thead>
             <tr>
               <th scope="col">#</th>
               <th scope="col">Name</th>
-              <th scope="col"># of Killed</th>
-              <th scope="col">Coin</th>
+              <th scope="col">Killed</th>
+              <th scope="col">Coins</th>
               <th scope="col">Time</th>
             </tr>
           </thead>
@@ -45,17 +43,39 @@
 
           </tbody>
         </table>
+        <br>
+        <div class="col">
+          <h3>Current Time: <span id="time">0:00</span></h3>
+          <input type="hidden" id="user" value="{{dataValue.name}}" />
+        </div>
+        <br>
+        <div class="col">
+          <h3>Coins Collected: <span id="coinCollected">0</span>
+            <font color="gold">/26</font>
+          </h3>
+        </div>
+        <br>
+        <div class="col">
+          <h3>Lives Remaining: <span id="live">3</span></h3>
+        </div>
+        <br>
+        <div class="col">
+          <h3>Monsters Killed: <span id="monsterKilled">0</span>
+            <font color="gold">/26</font>
+          </h3>
+        </div>
+        <br>
+
+        {{!-- Game instruction --}}
+        <div id="instructions">
+          <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump<br>
+          Collect coins and jump on monsters to eliminate
+        </div>
       </div>
 
+
     </div>
-
   </div>
-
-  {{!-- Game instruction --}}
-  <div id="instructions">
-    <b>LEFT/RIGHT</b> to move, <b>SPACE</b> to jump, collect gold and jump on monsters.
-  </div>
-
   <script src="//cdn.jsdelivr.net/npm/phaser@3.18.1/dist/phaser.js"></script>
   <script src="/assets/js/fpsmeter.min.js"></script>
   <script src="/assets/js/platformer.js"></script>
