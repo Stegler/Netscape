@@ -26,10 +26,10 @@ module.exports = function(app) {
   });
   // lender game level
 
-  app.get("/mylevel.json", (req, res) => {
-    var level = Math.floor(Math.random() * 2) + 1;
-    console.log(`load level ${level} for user`);
+  //   app.get("/mylevel.json", (req, res) => {
+  //     var level = Math.floor(Math.random() * 2) + 1;
+  //     console.log(`load level ${level} for user`);
 
-  //   res.sendFile(path.join(__dirname, `../levels/level${level}.json`));
-  // });
+  //   //   res.sendFile(path.join(__dirname, `../levels/level${level}.json`));
+  //   // });
 };
