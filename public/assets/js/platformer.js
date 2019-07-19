@@ -76,7 +76,7 @@ function create() {
     map = this.make.tilemap({ key: "level1" });
 
     // Create the background image
-    this.add.image(600, 300, "background");
+    this.add.image(925, 300, "background");
 
     // Create tiles for the ground layer
     var tileset = map.addTilesetImage("tileset", "tiles");
@@ -148,12 +148,13 @@ function create() {
     for (var i = 0; i < InvisibleWalls.length; i++) {
         InvisibleWalls[i].body.setAllowGravity(false).immovable = true;
     };
+
     // Create enemies from our tiled map layout 
     // Objects is the name of the objects layer
     // monster is name of objects within object layer
     Monsters = map.createFromObjects("Objects", "monster", { key: "monster" });
     this.physics.world.enable(Monsters);
-    console.log(Monsters);
+    
     // Adds movement for all the enemies
     for (var i = 0; i < Monsters.length; i++) {
         Monsters[i].body.velocity.x = boxSpeed;
@@ -188,7 +189,9 @@ function create() {
 };
 
 function update() {
+
     // These are all the input commands for the game. Moving also causes player to play animations. 
+    // This controls movement and animations associated with movement. Jumping included. 
     if (cursors.right.isDown) {
         if (player.body.onFloor()) {
             player.play("walk", true);
@@ -232,14 +235,14 @@ function collectCoin(player, Coins) {
     console.log("Treasure collected!");
 };
 
-// Win condition function for when all coins collected
+// Checks to see if all coins are collected. Win condition! 
 function checkCoins() {
     if (coinScore == 26) {
         Gameover();
     }
 };
 
-// Only run playerKillMonster if player lands on monster head
+// Goomba effect for player / monster interaction. Kill or be killed world. 
 function playerMonster(player, Monsters) {
     if (player.body.touching.down) {
         Monsters.destroy(Monsters.x, Monsters.y); // Kill monster! Jump on head
