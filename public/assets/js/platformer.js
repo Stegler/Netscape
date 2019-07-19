@@ -213,10 +213,6 @@ function update() {
         } else {
             player.play("jump", true);
         }
-        player.body.setVelocityX(0);
-    }
-    if ((cursors.up.isDown || cursors.space.isDown) && player.body.onFloor()) {
-        player.body.setVelocityY(-400);
     }
 };
 
