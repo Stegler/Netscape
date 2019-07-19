@@ -20,20 +20,6 @@ var config = {
 
 var game = new Phaser.Game(config);
 
-var map;
-var groundLayer;
-
-var player;
-var playerLives = 1;
-
-var treasure;
-var numOfKilledMonster = 0; // Total mosnsters are 26.
-var coinScore = 0; // Total coin number is 26.
-
-var moveCam = false;
-var cursors;
-var startTime = new Date();
-// var monster; 
 function preload() {
     // map made with Tiled in JSON format
     this.load.tilemapTiledJSON('level1', '/assets/levels/level1.json');
@@ -44,14 +30,49 @@ function preload() {
     //  load simple background
     this.load.image('background', '/assets/images/background.png');
     // load player and player animations
-    this.load.image('player', 'assets/images/player.png');
+    this.load.spritesheet('player', 'assets/images/playerComplete.png', { frameWidth: 32, frameHeight: 44 });
     // load simple monster image
     this.load.image('monster', '/assets/images/monster.png');
     // load spike image
     this.load.image('spike', '/assets/images/groundspike.png');
-    // load invisible wall
-    // this.load.image('invisibleWalls', 'images/invisibleWalls.png');
+    // load wall image
+    this.load.image('wall', '/assets/images/wall.png');
+    // Loading background music
+    this.load.audio('backgroundMusic', '/assets/audio/backgroundMusic.mp3');
+    // Load coin sound
+    this.load.audio('coinSound', '/assets/audio/coin.mp3');
+    // Load stomp sound
+    this.load.audio('stompSound', '/assets/audio/stomp.mp3');
+    // Load death sound
+    this.load.audio('deathSound', '/assets/audio/death.mp3');
 }
+
+
+
+var map;
+var groundLayer;
+
+var player;
+var playerLives = 3;
+
+var treasure;
+var coinScore = 0; // Total coin number is 26. 
+
+var monster;
+var numOfKilledMonster = 0; // Total mosnsters are 26.
+var boxSpeed = 100;
+
+var moveCam = false;
+var cursors;
+
+var backgroundMusic;
+var coinSound;
+var deathSound;
+var stompSound;
+
+var startTime = new Date();
+
+
 
 function create() {
 
@@ -75,8 +96,32 @@ function create() {
     this.physics.world.bounds.height = groundLayer.height;
 
     // create the player sprite    
-    player = this.physics.add.sprite(50, 830, 'player');
+    player = this.physics.add.sprite(50, 830, 'player', 2);
     player.setCollideWorldBounds(true); // don't go out of the map
+    this.anims.create({
+        key: 'idle',
+        frames: [{ key: 'player', frame: 2 }],
+        frameRate: 20
+    });
+    this.anims.create({
+        key: 'walk',
+        frames: this.anims.generateFrameNumbers('player', { start: 0, end: 6 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    this.anims.create({
+        key: 'jump',
+        frames: this.anims.generateFrameNumbers('player', { start: 7, end: 13 }),
+        frameRate: 10,
+        repeat: -1
+    });
+    this.anims.create({
+        key: 'die',
+        frames: this.anims.generateFrameNumbers('player', { start: 14, end: 20 }),
+        frameRate: 10,
+        repeat: -1
+    });
+
 
     // Physics so player can't fall through any groundlayer variable. AKA the tiles. 
     this.physics.add.collider(groundLayer, player);
@@ -99,64 +144,90 @@ function create() {
         Coins[i].body.setAllowGravity(false);
     };
 
-    this.physics.add.collider(player, Coins, collectCoin, null, this);
 
+
+    // Create invisible walls for monsters to run into
+    InvisibleWalls = map.createFromObjects("Objects", "wall", { key: 'wall' });
+    this.physics.world.enable(InvisibleWalls);
+    for (var i = 0; i < InvisibleWalls.length; i++) {
+        InvisibleWalls[i].body.setAllowGravity(false).immovable = true;
+    };
     // Create enemy objects
     Monsters = map.createFromObjects("Objects", "monster", { key: 'monster' });
     this.physics.world.enable(Monsters);
-
-    this.physics.add.collider(player, Monsters, monsterKillPlayer, null, this);
-
-    // enable collision resolution between the monsters and the groundLayer
-    this.physics.add.collider(groundLayer, Monsters);
-
-    // enable collision resolution between the monsters and the walls
-    // this.physics.add.collider(Monsters, invisibleWalls);
-
     // Adds movement for all the enemies
     for (var i = 0; i < Monsters.length; i++) {
-        //   Monsters[i].body.velocity.x = 100;
-    }
-
-    this.physics.add.collider(player, Monsters, playerKillMonster, monsterCount, null, this);
+        Monsters[i].body.velocity.x = boxSpeed;
+    };
+  this.physics.add.collider(groundLayer, Monsters);
 
     // Create spikes around map
     // Objects is the Name of the objets layer. treasure is name of objects within object layer
     Spikes = map.createFromObjects("Objects", "spike", { key: 'spike' });
-
     this.physics.world.enable(Spikes);
     for (var i = 0; i < Spikes.length; i++) {
         Spikes[i].body.setAllowGravity(false);
-        // };
+      };
 
-        this.physics.add.collider(player, Spikes, SpikeDeath, null, this);
-    };
 
-};
+    // Create all our collision functions. 
+    this.physics.add.collider(player, Spikes, SpikeDeath, null, this);
+    this.physics.add.collider(player, Monsters, playerMonster, null, this);
+    this.physics.add.collider(player, Coins, collectCoin, null, this);
+    this.physics.add.collider(InvisibleWalls, Monsters, Bounce, null, this);
+    this.physics.add.collider(Monsters, Monsters, Bounce, null, this);
+    this.physics.add.collider(groundLayer, Monsters);
+
+    // Adding all of our music into the game
+    backgroundMusic = this.sound.add('backgroundMusic');
+    coinSound = this.sound.add('coinSound', { volume: 0.01 });
+    deathSound = this.sound.add('deathSound', { volume: 0.3 });
+    stompSound = this.sound.add('stompSound', { volume: 0.1 });
+    backgroundMusic.play({
+        volume: .05,
+        loop: true
+    })
+}
 
 function update() {
 
-    if (cursors.left.isDown)
-    // if the left arrow key is down
-    {
-        player.body.setVelocityX(-160); // move left
+    if (cursors.right.isDown) {
+        if (player.body.onFloor()) {
+            player.play('walk', true);
+        } else {
+            player.play('jump', true)
+        }
+
+        player.flipX = false;
+        player.body.setVelocityX(180);
     }
-    else if (cursors.right.isDown)
-    // if the right arrow key is down
-    {
-        player.body.setVelocityX(160); // move right
-    } else {
-        player.setVelocityX(0);
+    else if (cursors.left.isDown) {
+        if (player.body.onFloor()) {
+            player.play('walk', true);
+        } else {
+            player.play('jump', true)
+        }
+        player.flipX = true;
+        player.body.setVelocityX(-180);
     }
-    if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor()) {
-        player.body.setVelocityY(-400); // jump up
+    else {
+        if (player.body.onFloor()) {
+            player.play('idle');
+        } else {
+            player.play('jump', true);
+        }
+        player.body.setVelocityX(0);
     }
 
+    if ((cursors.up.isDown || cursors.space.isDown) && player.body.onFloor()) {
+        player.body.setVelocityY(-400);
+    }
 }
 
 // External function to collect coins
 function collectCoin(player, Coins) {
     Coins.destroy(Coins.x, Coins.y); // remove the tile/coin
+    coinSound.play();
     coinScore++;
     checkCoins();
     // show current coins collected on html
@@ -164,64 +235,45 @@ function collectCoin(player, Coins) {
     console.log("Treasure collected!");
 }
 
-function SpikeDeath(player, Spikes) {
-    player.destroy(player.x, player.y);
-    playerLives--;
-    console.log("Avoid the spikes dummy!" + " " + playerLives);
-    checkLives();
-    Respawn();
-    // update player live stat on html
-    $("#live").text(playerLives);
-}
+// Win condition function for when all coins collected
+function checkCoins() {
+    if (coinScore == 26) {
+         WinGame();
+    }
 
 // Only run playerKillMonster if player lands on monster head
-function playerKillMonster(player, Monsters) {
+function playerMonster(player, Monsters) {
     if (player.body.touching.down) {
         Monsters.destroy(Monsters.x, Monsters.y); // Kill monster! Jump on head
         $("#monsterKilled").text(numOfKilledMonster);
-        console.log("Monster killed!")
+       numOfKilledMonster++;
+    stompSound.play();
+    console.log("Monster Squished!")
+    }
+    else if (player.body.touching.left || player.body.touching.right) {
+    deathSound.play();
+    backgroundMusic.stop();
+    this.scene.restart();
+   }
+}
+
+// Function for when player jumps on spikes
+function SpikeDeath(player, Spikes) {
+    deathSound.play();
+    backgroundMusic.stop();
+    this.scene.restart();
+}
+
+
+function Bounce(InvisibleWalls, Monsters) {
+    if (Monsters.body.touching.right || Monsters.body.blocked.right) {
+        Monsters.body.velocity.x = -boxSpeed; // turn left
+    }
+    else if (Monsters.body.touching.left || Monsters.body.blocked.left) {
+        Monsters.body.velocity.x = boxSpeed; // turn right
     }
 }
 
-// External function to count numOfKilledMonster
-function monsterCount(player, Monsters) {
-    Monsters.destroy(Monsters.x, Monsters.y); // remove the tile/coin
-    numOfKilledMonster++;
-    console.log("Monster Score Count: " + numOfKilledMonster)
-}
-
-// Only run monster kill player if player horizontal to monster
-function monsterKillPlayer(player, Monsters) {
-    if (player.body.touching.left || player.body.touching.right) {
-        player.destroy(player.x, player.y);
-        console.log("You ded. " + "Lives left: " + playerLives);
-        // playerLives--;
-        // checkLives(); 
-        // update playerLives on game screen
-        // if (playerLives === 0) {
-        //  gameOver();
-        // } else {
-        // respawn();
-        // }
-        // update player live stat on html
-        $("#live").text(playerLives);
-    }
-}
-
-function checkCoins() {
-    if (coinScore = 26) {
-        Gameover();
-    }
-}
-
-function checkLives() {
-    if (playerLives > 0) {
-        Respawn();
-    };
-    if (playerLives = 0) {
-        Gameover();
-    };
-}
 
 function Respawn() {
 // Recreate the player at the start zone
