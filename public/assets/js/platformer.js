@@ -81,10 +81,21 @@ function create() {
   var tileset = map.addTilesetImage("tileset", "tiles");
 
   // create the ground layer
+
   var groundLayer = map.createStaticLayer("Tiles", tileset, 0, 0);
 
   // the player will collide with this layer
   groundLayer.setCollisionByExclusion([-1]);
+
+  // create invisible walls
+
+  invisibleWalls = map.createFromObjects("Objects", "wall", { key: "wall" });
+
+  this.physics.world.enable(invisibleWalls);
+
+  for (var i = 0; i < invisibleWalls.length; i++) {
+    invisibleWalls[i].body.setAllowGravity(false).setImmovable();
+  }
 
   // set the boundaries of our game world
   this.physics.world.bounds.width = groundLayer.width;
@@ -131,7 +142,6 @@ function create() {
   // Create coins objects
   // Objects is the Name of the objets layer. treasure is name of objects within object layer
   Coins = map.createFromObjects("Objects", "treasure", { key: "treasure" });
-  console.log(Coins);
   this.physics.world.enable(Coins);
   for (var i = 0; i < Coins.length; i++) {
     Coins[i].body.setAllowGravity(false);
@@ -166,7 +176,7 @@ function create() {
   this.physics.add.collider(player, Coins, collectCoin, null, this);
   this.physics.add.collider(InvisibleWalls, Monsters, Bounce, null, this);
   this.physics.add.collider(Monsters, Monsters, Bounce, null, this);
-  this.physics.add.collider(groundLayer, Monsters);
+  this.physics.add.collider(groundLayer, Monsters, BounceGround, null, this);
 
   // Adding all of our music into the game
   backgroundMusic = this.sound.add("backgroundMusic");
@@ -240,6 +250,7 @@ function playerMonster(player, Monsters) {
   } else if (player.body.touching.left || player.body.touching.right) {
     deathSound.play();
     backgroundMusic.stop();
+    DeathReset();
     this.scene.restart();
   }
 }
@@ -248,7 +259,16 @@ function playerMonster(player, Monsters) {
 function SpikeDeath(player, Spikes) {
   deathSound.play();
   backgroundMusic.stop();
+  DeathReset();
   this.scene.restart();
+}
+
+function BounceGround(groundLayer, Monsters) {
+  if (Monsters.body.touching.right || Monsters.body.blocked.right) {
+    Monsters.body.velocity.x = -boxSpeed; // turn left
+  } else if (Monsters.body.touching.left || Monsters.body.blocked.left) {
+    Monsters.body.velocity.x = boxSpeed; // turn right
+  }
 }
 
 function Bounce(InvisibleWalls, Monsters) {
@@ -257,6 +277,11 @@ function Bounce(InvisibleWalls, Monsters) {
   } else if (Monsters.body.touching.left || Monsters.body.blocked.left) {
     Monsters.body.velocity.x = boxSpeed; // turn right
   }
+}
+
+function DeathReset() {
+  coinScore = 0;
+  numOfKilledMonster = 0;
 }
 
 function Respawn() {
