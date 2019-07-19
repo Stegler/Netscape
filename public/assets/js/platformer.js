@@ -55,7 +55,7 @@ var player;
 var playerLives = 3; // 3 Lives then your out! 
 
 var treasure;
-var coinScore = 0; // Total coin number is 26.
+var coinScore = 0; // Total coin number is 28.
 
 var monster;
 var numOfKilledMonster = 0; // Total mosnsters are 20.
@@ -134,6 +134,7 @@ function create() {
     // Create coins objects from tiled map layout
     // Objects is the name of the objects layer
     // treasure is name of objects within object layer
+    // Special node: objects need to be enabled to world and then set gravity false individually
     Coins = map.createFromObjects("Objects", "treasure", { key: "treasure" });
     this.physics.world.enable(Coins);
     for (var i = 0; i < Coins.length; i++) {
@@ -143,6 +144,7 @@ function create() {
     // Create invisible walls for monsters to run into
     // The walls are made invisible via tiled, but it is possible to do via phaser3
     // These are necessary to make monsters bounce back and forth
+    // Special node: objects need to be enabled to world and then set gravity false individually
     InvisibleWalls = map.createFromObjects("Objects", "wall", { key: "wall" });
     this.physics.world.enable(InvisibleWalls);
     for (var i = 0; i < InvisibleWalls.length; i++) {
@@ -152,6 +154,7 @@ function create() {
     // Create enemies from our tiled map layout 
     // Objects is the name of the objects layer
     // monster is name of objects within object layer
+    // Special node: objects need to be enabled to world and then set gravity false individually
     Monsters = map.createFromObjects("Objects", "monster", { key: "monster" });
     this.physics.world.enable(Monsters);
     
@@ -164,6 +167,7 @@ function create() {
     // Create spikes from our tiled map layout
     // Objects is the name of the objects layer
     // Spikes is the name of objects within object layer
+    // Special node: objects need to be enabled to world and then set gravity false individually
     Spikes = map.createFromObjects("Objects", "spike", { key: "spike" });
     this.physics.world.enable(Spikes);
     for (var i = 0; i < Spikes.length; i++) {
@@ -232,12 +236,12 @@ function collectCoin(player, Coins) {
     checkCoins();
     // show current coins collected on html
     $("#coinCollected").text(coinScore);
-    console.log("Treasure collected!");
+    console.log(coinScore)
 };
 
 // Checks to see if all coins are collected. Win condition! 
 function checkCoins() {
-    if (coinScore == 26) {
+    if (coinScore == 28) {
         Gameover();
     }
 };
