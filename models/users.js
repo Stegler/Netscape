@@ -1,3 +1,5 @@
+// sequelize create table name Users with column name, treasurePoint, monstersKilled, bestTime
+
 module.exports = function(sequelize, DataTypes) {
   var Users = sequelize.define("Users", {
     name: {
