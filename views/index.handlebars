@@ -7,7 +7,7 @@
         <form class="needs-validation mb-4" action="/game" method="POST">
           {{!-- user input name to start the game --}}
           <div class="form-group">
-            <label for="userName-text">Enter Name </label>
+            <label id="enter-name" for="userName-text">Enter your name before playing! </label>
             <input type="text" id="userName-text" class="form-control" name="name" aria-describedby="userName-text"
               placeholder="Name" required>
           </div>
@@ -21,24 +21,22 @@
           <div id="buttons-div" class="col-sm-12">
             {{!-- Leaderboard Button --}}
             <div class="button_cont" align="center"><a class="example_e" href="/leaderboard"
-                rel="nofollow noopener">Leaderboard</a></div><br>
-            {{!-- About Button --}}
-            <div class="button_cont" align="center"><a class="example_e" href="/endgame"
-                rel="nofollow noopener">About</a></div>
+                rel="nofollow noopener">Leaderboard</a>
+            </div>
+            <br>
           </div>
-        </div>
 
-        <div class="row">
-          <div id="directions-div" class="col-sm-12">
-            <h3 align="center">Arrows to move, space to jump. Collect the coins as fast as you can!</h3>
+          <div class="row">
+            <div id="directions-div" class="col-sm-12">
+              <h3 align="center">Arrows to move, space to jump. Collect the coins as fast as you can!</h3>
+            </div>
           </div>
-        </div>
 
+        </div>
       </div>
+
     </div>
 
   </div>
 
-</div>
-
-<script src="/assets/js/index.js"></script>
+  <script src="/assets/js/index.js"></script>

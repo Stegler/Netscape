@@ -12,7 +12,7 @@ module.exports = function(app) {
           [Op.gt]: 0
         }
       },
-      limit: 10,
+      limit: 20,
       order: [["treasurePoint", "DESC"], ["monstersKilled", "DESC"]]
     }).then(function(results) {
       res.json(results);

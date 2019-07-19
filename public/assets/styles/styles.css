@@ -23,10 +23,6 @@ input.MyButton:hover {
   border: 1px solid #fff;
 }
 
-body {
-  margin: 0;
-  /* overflow: hidden; */
-}
 #myCanvas {
   display: block;
 }
@@ -70,7 +66,7 @@ body {
     margin-top: 0px;
   }
   100% {
-    margin-top: 6px;
+    margin-top: 10px;
   }
 }
 
@@ -100,8 +96,10 @@ body {
 
 /* App background */
 body {
-  background: radial-gradient(circle, purple, teal);
+  /* background: radial-gradient(circle, purple, teal); */
   font-family: 'Orbitron', sans-serif;
+  background-image: url("/assets/images/background.png");
+  /* background-color: #cccccc; */
 }
 
 /* Buttons div */
@@ -116,5 +114,11 @@ body {
 
 /* How to play */
 h3 {
+  color: whitesmoke;
+}
+
+/* Enter name text */
+
+#enter-name {
   color: whitesmoke;
 }
