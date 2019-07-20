@@ -55,7 +55,7 @@ var player;
 var playerLives = 3; // 3 Lives then your out!
 
 var treasure;
-var coinScore = 0; // Total coin number is 26.
+var coinScore = 0; // Total coin number is 28.
 
 var monster;
 var numOfKilledMonster = 0; // Total mosnsters are 20.
@@ -134,6 +134,7 @@ function create() {
   // Create coins objects from tiled map layout
   // Objects is the name of the objects layer
   // treasure is name of objects within object layer
+  // Special node: objects need to be enabled to world and then set gravity false individually
   Coins = map.createFromObjects("Objects", "treasure", { key: "treasure" });
   this.physics.world.enable(Coins);
   for (var i = 0; i < Coins.length; i++) {
@@ -143,17 +144,20 @@ function create() {
   // Create invisible walls for monsters to run into
   // The walls are made invisible via tiled, but it is possible to do via phaser3
   // These are necessary to make monsters bounce back and forth
+  // Special node: objects need to be enabled to world and then set gravity false individually
   InvisibleWalls = map.createFromObjects("Objects", "wall", { key: "wall" });
   this.physics.world.enable(InvisibleWalls);
   for (var i = 0; i < InvisibleWalls.length; i++) {
     InvisibleWalls[i].body.setAllowGravity(false).immovable = true;
   }
+
   // Create enemies from our tiled map layout
   // Objects is the name of the objects layer
   // monster is name of objects within object layer
+  // Special node: objects need to be enabled to world and then set gravity false individually
   Monsters = map.createFromObjects("Objects", "monster", { key: "monster" });
   this.physics.world.enable(Monsters);
-  console.log(Monsters);
+
   // Adds movement for all the enemies
   for (var i = 0; i < Monsters.length; i++) {
     Monsters[i].body.velocity.x = boxSpeed;
@@ -163,6 +167,7 @@ function create() {
   // Create spikes from our tiled map layout
   // Objects is the name of the objects layer
   // Spikes is the name of objects within object layer
+  // Special node: objects need to be enabled to world and then set gravity false individually
   Spikes = map.createFromObjects("Objects", "spike", { key: "spike" });
   this.physics.world.enable(Spikes);
   for (var i = 0; i < Spikes.length; i++) {
@@ -189,6 +194,7 @@ function create() {
 
 function update() {
   // These are all the input commands for the game. Moving also causes player to play animations.
+  // This controls movement and animations associated with movement. Jumping included.
   if (cursors.right.isDown) {
     if (player.body.onFloor()) {
       player.play("walk", true);
@@ -226,17 +232,17 @@ function collectCoin(player, Coins) {
   checkCoins();
   // show current coins collected on html
   $("#coinCollected").text(coinScore);
-  console.log("Treasure collected!");
+  console.log(coinScore);
 }
 
-// Win condition function for when all coins collected
+// Checks to see if all coins are collected. Win condition!
 function checkCoins() {
-  if (coinScore == 26) {
+  if (coinScore == 28) {
     Gameover();
   }
 }
 
-// Only run playerKillMonster if player lands on monster head
+// Goomba effect for player / monster interaction. Kill or be killed world.
 function playerMonster(player, Monsters) {
   if (player.body.touching.down) {
     Monsters.destroy(Monsters.x, Monsters.y); // Kill monster! Jump on head
@@ -254,7 +260,7 @@ function SpikeDeath(player, Spikes) {
   Death(player);
 }
 
-// This function makes the monsters "bounce" off the walls and reverse direction. The walls are invisible blocks maode in Tiled.
+// This function makes the monsters "bounce" off the walls and reverse direction. The walls are invisible blocks made in Tiled.
 function Bounce(InvisibleWalls, Monsters) {
   if (Monsters.body.touching.right || Monsters.body.blocked.right) {
     Monsters.body.velocity.x = -boxSpeed; // turn left
@@ -312,7 +318,7 @@ function currentTime() {
   $("#time").text(duration.format("m:ss", { trim: false }));
 }
 
-//let set refresh the top 5 every 30 seconds
+//let set refresh the top 5  5 every 30 seconds
 updateGameTop5();
 
 setInterval(updateGameTop5, 1000 * 30);
