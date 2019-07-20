@@ -1,7 +1,7 @@
 var config = {
   type: Phaser.AUTO,
-  width: 1200,
-  height: 800,
+  width: 1100,
+  height: 700,
   parent: "GameCanvas",
   physics: {
     default: "arcade",
@@ -21,21 +21,21 @@ var config = {
 var game = new Phaser.Game(config);
 
 function preload() {
-  // map made with Tiled in JSON format
+  // Load map made with Tiled. Input as JSON format
   this.load.tilemapTiledJSON("level1", "/assets/levels/level1.json");
-  //  load tiles ground
+  // Load ground tiles image
   this.load.image("tiles", "/assets/images/tileset.png");
-  //  load simple coin image
+  // Load simple coin image
   this.load.image("treasure", "/assets/images/treasure.png");
-  //  load simple background
+  // Load simple background
   this.load.image("background", "/assets/images/background.png");
-  // load player and player animations
+  // Load player and player animations
   this.load.spritesheet("player", "assets/images/playerComplete.png", { frameWidth: 32, frameHeight: 44 });
-  // load simple monster image
+  // Load simple monster image
   this.load.image("monster", "/assets/images/monster.png");
-  // load spike image
+  // Load spike image
   this.load.image("spike", "/assets/images/groundspike.png");
-  // load wall image
+  // Load wall image
   this.load.image("wall", "/assets/images/wall.png");
   // Loading background music
   this.load.audio("backgroundMusic", "/assets/audio/backgroundMusic.mp3");
@@ -47,17 +47,18 @@ function preload() {
   this.load.audio("deathSound", "/assets/audio/death.mp3");
 }
 
+// List of variables to be used later in the game.
 var map;
 var groundLayer;
 
 var player;
-var playerLives = 3;
+var playerLives = 3; // 3 Lives then your out!
 
 var treasure;
-var coinScore = 0; // Total coin number is 26.
+var coinScore = 0; // Total coin number is 28.
 
 var monster;
-var numOfKilledMonster = 0; // Total mosnsters are 26.
+var numOfKilledMonster = 0; // Total mosnsters are 20.
 var boxSpeed = 100;
 
 var moveCam = false;
@@ -71,39 +72,30 @@ var stompSound;
 var startTime = new Date();
 
 function create() {
-  // load the map
+  // Create the map
   map = this.make.tilemap({ key: "level1" });
 
-  // load the background image
-  this.add.image(600, 300, "background");
+  // Create the background image
+  this.add.image(925, 450, "background");
 
-  // tiles for the ground layer
+  // Create tiles for the ground layer
   var tileset = map.addTilesetImage("tileset", "tiles");
 
-  // create the ground layer
-
+  // Create the ground layer from tileset variable
   var groundLayer = map.createStaticLayer("Tiles", tileset, 0, 0);
 
-  // the player will collide with this layer
+  // Ground layer will collide with other sprites/objects.
   groundLayer.setCollisionByExclusion([-1]);
 
-  // create invisible walls
-
-  invisibleWalls = map.createFromObjects("Objects", "wall", { key: "wall" });
-
-  this.physics.world.enable(invisibleWalls);
-
-  for (var i = 0; i < invisibleWalls.length; i++) {
-    invisibleWalls[i].body.setAllowGravity(false).setImmovable();
-  }
-
-  // set the boundaries of our game world
+  // Set the boundaries of our game world
   this.physics.world.bounds.width = groundLayer.width;
   this.physics.world.bounds.height = groundLayer.height;
 
-  // create the player sprite
+  // Create the player sprite
   player = this.physics.add.sprite(50, 830, "player", 2);
   player.setCollideWorldBounds(true); // don't go out of the map
+  // Idle/walking/jumping/and dying animations.
+  // The animations are stored on our player sprite sheet. In a horizontal line.
   this.anims.create({
     key: "idle",
     frames: [{ key: "player", frame: 2 }],
@@ -128,19 +120,21 @@ function create() {
     repeat: -1
   });
 
-  // Physics so player can't fall through any groundlayer variable. AKA the tiles.
+  // Physics so player can't fall through any groundlayer variable. AKA the tiles
   this.physics.add.collider(groundLayer, player);
 
-  // This creates cursor commands for movement.
+  // This creates cursor commands for movement
   cursors = this.input.keyboard.createCursorKeys();
 
-  // set bounds so the camera won't go outside the game world
+  // Set bounds so the camera won't go outside the game world
   this.cameras.main.setBounds(0, 0, map.widthInPixels, map.heightInPixels);
-  // make the camera follow the player
+  // Make the camera follow the player
   this.cameras.main.startFollow(player);
 
-  // Create coins objects
-  // Objects is the Name of the objets layer. treasure is name of objects within object layer
+  // Create coins objects from tiled map layout
+  // Objects is the name of the objects layer
+  // treasure is name of objects within object layer
+  // Special node: objects need to be enabled to world and then set gravity false individually
   Coins = map.createFromObjects("Objects", "treasure", { key: "treasure" });
   this.physics.world.enable(Coins);
   for (var i = 0; i < Coins.length; i++) {
@@ -148,35 +142,44 @@ function create() {
   }
 
   // Create invisible walls for monsters to run into
+  // The walls are made invisible via tiled, but it is possible to do via phaser3
+  // These are necessary to make monsters bounce back and forth
+  // Special node: objects need to be enabled to world and then set gravity false individually
   InvisibleWalls = map.createFromObjects("Objects", "wall", { key: "wall" });
   this.physics.world.enable(InvisibleWalls);
   for (var i = 0; i < InvisibleWalls.length; i++) {
     InvisibleWalls[i].body.setAllowGravity(false).immovable = true;
   }
-  // Create enemy objects
+
+  // Create enemies from our tiled map layout
+  // Objects is the name of the objects layer
+  // monster is name of objects within object layer
+  // Special node: objects need to be enabled to world and then set gravity false individually
   Monsters = map.createFromObjects("Objects", "monster", { key: "monster" });
   this.physics.world.enable(Monsters);
+
   // Adds movement for all the enemies
   for (var i = 0; i < Monsters.length; i++) {
     Monsters[i].body.velocity.x = boxSpeed;
   }
   this.physics.add.collider(groundLayer, Monsters);
 
-  // Create spikes around map
-  // Objects is the Name of the objets layer. treasure is name of objects within object layer
+  // Create spikes from our tiled map layout
+  // Objects is the name of the objects layer
+  // Spikes is the name of objects within object layer
+  // Special node: objects need to be enabled to world and then set gravity false individually
   Spikes = map.createFromObjects("Objects", "spike", { key: "spike" });
   this.physics.world.enable(Spikes);
   for (var i = 0; i < Spikes.length; i++) {
-    Spikes[i].body.setAllowGravity(false);
+    Spikes[i].body.setAllowGravity(false).immovable = true;
   }
 
-  // Create all our collision functions.
+  // Create all our collision functions
   this.physics.add.collider(player, Spikes, SpikeDeath, null, this);
   this.physics.add.collider(player, Monsters, playerMonster, null, this);
   this.physics.add.collider(player, Coins, collectCoin, null, this);
   this.physics.add.collider(InvisibleWalls, Monsters, Bounce, null, this);
   this.physics.add.collider(Monsters, Monsters, Bounce, null, this);
-  this.physics.add.collider(groundLayer, Monsters, BounceGround, null, this);
 
   // Adding all of our music into the game
   backgroundMusic = this.sound.add("backgroundMusic");
@@ -190,13 +193,14 @@ function create() {
 }
 
 function update() {
+  // These are all the input commands for the game. Moving also causes player to play animations.
+  // This controls movement and animations associated with movement. Jumping included.
   if (cursors.right.isDown) {
     if (player.body.onFloor()) {
       player.play("walk", true);
     } else {
       player.play("jump", true);
     }
-
     player.flipX = false;
     player.body.setVelocityX(180);
   } else if (cursors.left.isDown) {
@@ -215,7 +219,6 @@ function update() {
     }
     player.body.setVelocityX(0);
   }
-
   if ((cursors.up.isDown || cursors.space.isDown) && player.body.onFloor()) {
     player.body.setVelocityY(-400);
   }
@@ -229,17 +232,17 @@ function collectCoin(player, Coins) {
   checkCoins();
   // show current coins collected on html
   $("#coinCollected").text(coinScore);
-  console.log("Treasure collected!");
+  console.log(coinScore);
 }
 
-// Win condition function for when all coins collected
+// Checks to see if all coins are collected. Win condition!
 function checkCoins() {
-  if (coinScore == 26) {
-    WinGame();
+  if (coinScore == 28) {
+    Gameover();
   }
 }
 
-// Only run playerKillMonster if player lands on monster head
+// Goomba effect for player / monster interaction. Kill or be killed world.
 function playerMonster(player, Monsters) {
   if (player.body.touching.down) {
     Monsters.destroy(Monsters.x, Monsters.y); // Kill monster! Jump on head
@@ -248,29 +251,16 @@ function playerMonster(player, Monsters) {
     stompSound.play();
     console.log("Monster Squished!");
   } else if (player.body.touching.left || player.body.touching.right) {
-    deathSound.play();
-    backgroundMusic.stop();
-    DeathReset();
-    this.scene.restart();
+    Death(player);
   }
 }
 
 // Function for when player jumps on spikes
 function SpikeDeath(player, Spikes) {
-  deathSound.play();
-  backgroundMusic.stop();
-  DeathReset();
-  this.scene.restart();
+  Death(player);
 }
 
-function BounceGround(groundLayer, Monsters) {
-  if (Monsters.body.touching.right || Monsters.body.blocked.right) {
-    Monsters.body.velocity.x = -boxSpeed; // turn left
-  } else if (Monsters.body.touching.left || Monsters.body.blocked.left) {
-    Monsters.body.velocity.x = boxSpeed; // turn right
-  }
-}
-
+// This function makes the monsters "bounce" off the walls and reverse direction. The walls are invisible blocks made in Tiled.
 function Bounce(InvisibleWalls, Monsters) {
   if (Monsters.body.touching.right || Monsters.body.blocked.right) {
     Monsters.body.velocity.x = -boxSpeed; // turn left
@@ -279,15 +269,24 @@ function Bounce(InvisibleWalls, Monsters) {
   }
 }
 
-function DeathReset() {
-  coinScore = 0;
-  numOfKilledMonster = 0;
+// This function occurs when the player 'dies'.
+function Death() {
+  playerLives--;
+  $("#live").text(playerLives);
+  CheckLives();
+  deathSound.play();
+  player.x = 50;
+  player.y = 830;
 }
 
-function Respawn() {
-  // Recreate the player at the start zone
+// This function checks player lives and if players lives are 0, End game.
+function CheckLives() {
+  if (playerLives === 0) {
+    Gameover();
+  }
 }
 
+// This functions is our score screen. This game is ended if coins collected or player runs out of lives.
 function Gameover() {
   const user = document.getElementById("user").value;
   var endTime = new Date();
@@ -311,9 +310,7 @@ setTimeout(() => {
 }, 1000 * 60 * 3);
 
 // set game time count
-
 setInterval(currentTime, 1000);
-
 function currentTime() {
   var currentTime = new Date();
   different = currentTime - startTime;
@@ -321,10 +318,10 @@ function currentTime() {
   $("#time").text(duration.format("m:ss", { trim: false }));
 }
 
-//let set refresh the top 5 every minute
+//let set refresh the top 5  5 every 30 seconds
 updateGameTop5();
 
-setInterval(updateGameTop5, 1000 * 60);
+setInterval(updateGameTop5, 1000 * 30);
 
 // Make a get request to our api route that will return top 5 players
 function updateGameTop5() {
@@ -332,11 +329,20 @@ function updateGameTop5() {
     // For each book that our server sends us back
     $(".table-dark > tbody").html("");
 
-    for (var i = 0; i < 5; i++) {
-      var duration = moment.duration(data[i].bestTime, "milliseconds");
-      var formmatedTime = duration.format("m:ss", { trim: false });
+    if (data.length > 5) {
+      for (var i = 0; i < 5; i++) {
+        var duration = moment.duration(data[i].bestTime, "milliseconds");
+        var formmatedTime = duration.format("m:ss", { trim: false });
 
-      $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].monstersKilled), $("<td>").text(formmatedTime)));
+        $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].monstersKilled), $("<td>").text(formmatedTime)));
+      }
+    } else {
+      for (var i = 0; i < data.length; i++) {
+        var duration = moment.duration(data[i].bestTime, "milliseconds");
+        var formmatedTime = duration.format("m:ss", { trim: false });
+
+        $(".table-dark > tbody").append($("<tr>").append($("<td>").text([i + 1]), $("<td>").text(data[i].name), $("<td>").text(data[i].treasurePoint), $("<td>").text(data[i].monstersKilled), $("<td>").text(formmatedTime)));
+      }
     }
   });
 }
