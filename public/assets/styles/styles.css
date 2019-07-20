@@ -28,7 +28,7 @@ input.MyButton:hover {
 /* Start button */
 
 #button {
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, sans-serif;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
   position: absolute;
   font-size: 1.5em;
   text-transform: uppercase;
@@ -95,7 +95,7 @@ input.MyButton:hover {
 /* App background */
 body {
   background: radial-gradient(circle, purple, teal);
-  font-family: 'Orbitron', sans-serif;
+  font-family: "Orbitron", sans-serif;
   /* background-image: url("/assets/images/background.png"); */
   /* background-color: #cccccc; */
   text-align: center;
@@ -112,7 +112,8 @@ body {
 }
 
 /* How to play */
-h3, h2 {
+h3,
+h2 {
   color: whitesmoke;
 }
 
