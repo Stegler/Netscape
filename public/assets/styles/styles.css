@@ -92,9 +92,9 @@ input.MyButton:hover {
 
 /* App background */
 body {
-  background: radial-gradient(circle, purple, teal);
+  /* background: radial-gradient(circle, purple, teal); */
   font-family: 'Orbitron', sans-serif;
-  /* background-image: url("/assets/images/background.png"); */
+  background-image: url("/assets/images/background.png");
   /* background-color: #cccccc; */
   text-align: center;
 }
@@ -146,4 +146,9 @@ div.button_cont {
 .outset {
   border-style: outset;
   padding-bottom: 10px;
+  background: #2b2a2a
+}
+
+#leaderboard-title {
+  color: red;
 }
