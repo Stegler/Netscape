@@ -11,6 +11,8 @@ input.MyButton {
   -moz-box-shadow: 6px 6px 5px #999;
   -webkit-box-shadow: 6px 6px 5px #999;
   box-shadow: 6px 6px 5px #999;
+  float: left;
+  margin-bottom: 40px;
 }
 
 input.MyButton:hover {
@@ -92,10 +94,11 @@ input.MyButton:hover {
 
 /* App background */
 body {
-  /* background: radial-gradient(circle, purple, teal); */
+  background: radial-gradient(circle, purple, teal);
   font-family: 'Orbitron', sans-serif;
-  background-image: url("/assets/images/background.png");
+  /* background-image: url("/assets/images/background.png"); */
   /* background-color: #cccccc; */
+  text-align: center;
 }
 
 /* Buttons div */
@@ -109,7 +112,7 @@ body {
 }
 
 /* How to play */
-h3 {
+h3, h2 {
   color: whitesmoke;
 }
 
@@ -117,4 +120,11 @@ h3 {
 
 #enter-name {
   color: whitesmoke;
+  float: left;
+}
+
+img {
+  position: fixed;
+  border: 3px solid black;
+  z-index: -1;
 }

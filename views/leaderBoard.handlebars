@@ -13,10 +13,10 @@
 
 {{!-- This code run when there is user score --}}
 {{#if finalScore.bestTime}}
-<div class="container">
-    <h2>{{finalScore.name}}, your Best Time is {{finalScore.bestTime}}s</h2>
-    <h2>Your Coins Collected is: {{finalScore.treasurePoint}} coins</h2>
-    <h2>Humber of Monsters Killed: {{finalScore.monstersKilled}} </h2>
+<div class="container"><br>
+    <h2>{{finalScore.name}}, your best time is <font color="gold">{{finalScore.bestTime}}</font>s</h2>
+    <h2>Coins Collected: <font color="gold">{{finalScore.treasurePoint}}</font></h2>
+    <h2>Monsters Killed: <font color="gold">{{finalScore.monstersKilled}}</font></h2>
 </div>
 {{/if}}
 
@@ -31,8 +31,9 @@
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">First</th>
-                    <th scope="col">Last</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Coins</th>
+                    <th scope="col">Killed</th>
                     <th scope="col">Time</th>
                 </tr>
             </thead>
@@ -41,7 +42,7 @@
             </tbody>
         </table>
         {{!-- Main menu button --}}
-        <input class="MyButton" type="button" value="<--" onclick="window.location.href='/'" />
+        <input class="MyButton" type="button" value="<--" onclick="window.location.href='/'" /><br><br><br>
     </div>
     <div class="col-sm-2">
         {{!-- Spacing columns --}}
