@@ -1,5 +1,5 @@
 // Modules to control application life and create native browser window
-const { app, BrowserWindow } = require("electron");
+const { app, BrowserWindow, globalShortcut } = require("electron");
 const path = require("path");
 
 // Keep a global reference of the window object, if you don't, the window will
@@ -19,7 +19,7 @@ function createWindow() {
     minHeight: 800,
     resizable: true,
     center: true,
-    fullscreenable: true,
+    fullscreen: true,
     autoHideMenuBar: true
   });
 
@@ -58,3 +58,9 @@ app.on("activate", function() {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and require them here.
+app.on("ready", () => {
+  globalShortcut.register("CommandOrControl+X", () => {
+    console.log("CommandOrControl+X is pressed");
+    app.quit();
+  });
+});
