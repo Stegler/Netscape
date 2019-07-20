@@ -11,22 +11,27 @@
 --}}
 <script type="text/javascript" src="/assets/js/leaders.js"></script>
 
-{{!-- This code run when there is user score --}}
-{{#if finalScore.bestTime}}
-<div class="container"><br>
-    <h2>{{finalScore.name}}, your best time is <font color="gold">{{finalScore.bestTime}}</font>s</h2>
-    <h2>Coins Collected: <font color="gold">{{finalScore.treasurePoint}}</font></h2>
-    <h2>Monsters Killed: <font color="gold">{{finalScore.monstersKilled}}</font></h2>
-</div>
-{{/if}}
-
 <br>
 <div class="row">
+
     <div class="col-sm-2">
         {{!-- Spacing columns --}}
     </div>
+
     <div class="col-sm-8">
-        <h1 align="center">Leaderboard Page</h1>
+
+        {{!-- This code run when there is user score --}}
+        {{#if finalScore.bestTime}}
+        <div class="outset"><br>
+            <h2>{{finalScore.name}}, your best time is <font color="gold">{{finalScore.bestTime}}</font>s</h2>
+            <h2>Coins Collected: <font color="gold">{{finalScore.treasurePoint}}</font>
+            </h2>
+            <h2>Monsters Killed: <font color="gold">{{finalScore.monstersKilled}}</font>
+            </h2>
+        </div><br>
+        {{/if}}
+
+        <h1 id="leaderboard-title" align="center">Leaderboard</h1>
         <table class="table table-dark">
             <thead>
                 <tr>
@@ -37,14 +42,16 @@
                     <th scope="col">Time</th>
                 </tr>
             </thead>
+
             <tbody>
 
             </tbody>
+
         </table>
         {{!-- Main menu button --}}
-        <input class="MyButton" type="button" value="<--" onclick="window.location.href='/'" /><br><br><br>
-    </div>
-    <div class="col-sm-2">
-        {{!-- Spacing columns --}}
-    </div>
-</div>
+        {{!-- <input class="MyButton" type="button" value="<--" onclick="window.location.href='/'" /><br><br><br> --}}
+        <div class="button_cont">
+            <a id="leaderboard-home" class="example_e" href="/" rel="nofollow noopener">
+                <-- Menu</a> </div> </div> <div class="col-sm-2">
+                    {{!-- Spacing columns --}}
+        </div>

@@ -26,7 +26,6 @@ input.MyButton:hover {
 }
 
 /* Start button */
-
 #button {
   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
   position: absolute;
@@ -69,7 +68,6 @@ input.MyButton:hover {
 }
 
 /* Leaderboard button */
-
 .example_e {
   border: none;
   background: #404040;
@@ -94,38 +92,63 @@ input.MyButton:hover {
 
 /* App background */
 body {
-  background: radial-gradient(circle, purple, teal);
-  font-family: "Orbitron", sans-serif;
-  /* background-image: url("/assets/images/background.png"); */
+  /* background: radial-gradient(circle, purple, teal); */
+  font-family: 'Orbitron', sans-serif;
+  background-image: url("/assets/images/background.png");
   /* background-color: #cccccc; */
   text-align: center;
 }
 
 /* Buttons div */
 #buttons-div {
-  padding-top: 100px;
+  /* padding-top: 10px; */
 }
 
 /* Directions div */
 #directions-div {
-  padding-top: 50px;
+  padding-top: 0px;
 }
 
 /* How to play */
-h3,
-h2 {
+h3, h2, h1 {
   color: whitesmoke;
 }
 
 /* Enter name text */
-
 #enter-name {
   color: whitesmoke;
   float: left;
 }
 
-img {
-  position: fixed;
-  border: 3px solid black;
+#image-container {
+  position: absolute;
   z-index: -1;
+}
+
+img.rounded {
+  margin-top: 80px;
+}
+
+.container {
+  position: relative;
+  z-index: 2;
+}
+
+div.button_cont {
+  margin-top: 50px;
+}
+
+#leaderboard-home {
+  float: left;
+  margin-bottom: 40px;
+}
+
+.outset {
+  border-style: outset;
+  padding-bottom: 10px;
+  background: #2b2a2a
+}
+
+#leaderboard-title {
+  color: red;
 }
