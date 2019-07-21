@@ -35,10 +35,10 @@ Project is created with:
 
 ## Deployment
 
-Download the repository
+Download repository
 
-- In your terminal, cd to the netscape folder directory, `$npm i`
-- In you local mySql: use the schema provide in models folder, create Database
+- In terminal, cd to the netscape folder directory, `$npm i`
+- In your local mySql: use the schema provide in models folder, create Database
 - Enter your mySql connection info (under "test" section) in config.js under config folder
 - To run on electron: `$npm run electron`
 - To run on browser: `$node server.js`
@@ -47,19 +47,19 @@ Download the repository
 
 ### Summary
 
-- Using electron run express server and handlebars. [Link to quick start guilds](https://github.com/joshjcarrier/electron-express-quick-start)
+- Using electron to run express server and handlebars. [Link to quick start guilds](https://github.com/joshjcarrier/electron-express-quick-start)
 - Tiled & Phaser 3 to run game engins
-- Bootstrap, handlebars for front end templete
-- mySql for database connection
+- Bootstrap, Handlebars for front end template
+- mySql database
 - node.js to run and management models
 
-## JavaScript Game Function explain
+## JavaScript Game Function explaination
 
 ## CSS style
 
-## handlebars
+## Handlebars
 
-#### Here the code to run different css style for different page
+#### Code to run different css styles for different pages
 
 ```
 // in your server side
@@ -77,7 +77,7 @@ Download the repository
  <link href="/assets/styles/{{style}}" type="text/css" rel="stylesheet" />
 ```
 
-#### Here the code handlebars show part of html only the if there is current user
+#### Handlebars show part of html only the if there is current user
 
 ```
 <!-- in your leaderboard.handlebar -->
