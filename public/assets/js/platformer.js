@@ -1,6 +1,6 @@
 var config = {
   type: Phaser.AUTO,
-  width: 1100,
+  width: 1000,
   height: 700,
   parent: "GameCanvas",
   physics: {

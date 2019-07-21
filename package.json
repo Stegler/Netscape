@@ -1,14 +1,22 @@
 {
-  "name": "node-handlebars-boilerplate",
+  "name": "(Netscape-Group)",
   "version": "1.0.0",
-  "description": "Project 2 Starter",
+  "description": "treasure-hunter",
   "main": "main.js",
   "scripts": {
     "start": "node server.js",
     "electron": "electron .",
     "lint": "eslint --quiet .",
     "fix": "eslint --fix .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder",
     "test": "npm run lint && cross-env NODE_ENV=test mocha -u bdd --reporter spec --exit"
+  },
+  "build": {
+    "appId": "treasure-hunter",
+    "mac": {
+      "category": "public.app-category.games"
+    }
   },
   "license": "ISC",
   "dependencies": {
@@ -21,10 +29,11 @@
     "sequelize": "^5.10.0"
   },
   "devDependencies": {
-    "electron": "^5.0.6",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
     "cross-env": "^5.2.0",
+    "electron": "^5.0.6",
+    "electron-builder": "^21.1.1",
     "eslint": "^5.16.0",
     "eslint-config-prettier": "^4.3.0",
     "eslint-plugin-prettier": "^3.1.0",
