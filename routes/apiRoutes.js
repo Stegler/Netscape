@@ -16,7 +16,7 @@ module.exports = function(app) {
       },
       limit: 20,
       // order by coins collected and monster kill
-      order: [["treasurePoint", "DESC"], ["monstersKilled", "DESC"]]
+      order: [["treasurePoint", "DESC"], ["monstersKilled", "DESC"], ["bestTime", "ASC"]]
     }).then(function(results) {
       // store the data in json format
       res.json(results);
