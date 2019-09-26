@@ -1,4 +1,4 @@
-# Netscape
+# Graveyard Knight - Netscape 
 
 ## Table of contents
 
